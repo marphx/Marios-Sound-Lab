@@ -48,9 +48,9 @@
   .home-card{position:relative;width:min(850px,94vw);min-height:min(560px,88vh);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:clamp(24px,5vw,64px);border:1px solid rgba(131,255,243,.34);border-radius:32px;background:radial-gradient(circle at 50% 35%,rgba(131,255,243,.12),rgba(3,23,26,.72) 45%,rgba(0,0,0,.94));box-shadow:var(--shadow),inset 0 0 100px rgba(10,174,168,.10);overflow:hidden;}
   .home-card:before{content:"";position:absolute;inset:0;opacity:.45;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.035) 0 1px,transparent 1px 9px);mix-blend-mode:screen;}
   .home-kicker{position:relative;margin:0 0 18px;color:var(--teal1);letter-spacing:.26em;text-transform:uppercase;font-size:.72rem;text-shadow:0 0 14px rgba(131,255,243,.9);}
-  .home-title{position:relative;margin:0;line-height:.88;font-family:"Old English Text MT","Goudy Text MT","Apple Chancery","URW Chancery L",Georgia,serif;font-size:clamp(3.2rem,11vw,8rem);font-weight:900;letter-spacing:.01em;color:transparent;background:linear-gradient(180deg,#edfffd 0%,#b8fffa 18%,#83fff3 36%,#30ebdc 62%,#0aaea8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(131,255,243,.16);text-shadow:2px 0 0 rgba(255,56,232,.78),-2px 0 0 rgba(48,235,220,.9),0 4px 0 rgba(0,20,22,.95),0 0 24px rgba(131,255,243,.42),0 0 2px rgba(131,255,243,.95);filter:drop-shadow(0 0 14px rgba(48,235,220,.34));}
-  .home-title::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.24;background:repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 2px,transparent 2px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.14) 0 2px,transparent 2px 6px);mix-blend-mode:screen;}
-  .home-title span{display:block;font-size:.24em;letter-spacing:.28em;color:transparent;text-transform:uppercase;background:linear-gradient(180deg,#d8fffb 0%,#83fff3 50%,#30ebdc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:2px 0 0 rgba(255,56,232,.78),0 0 16px rgba(131,255,243,.72);margin-bottom:.16em;}
+  .home-title{position:relative;margin:0;line-height:.86;font-family:"Old English Text MT","Cloister Black","Goudy Text MT","Apple Chancery","URW Chancery L",Georgia,serif;font-size:clamp(3.3rem,11vw,8.1rem);font-weight:900;letter-spacing:.015em;color:transparent;background:linear-gradient(180deg,#f4fffe 0%,#d9fffb 14%,#83fff3 34%,#30ebdc 58%,#0aaea8 78%,#036b78 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:1.3px rgba(3,34,37,.96);text-shadow:1px 1px 0 #022528,2px 2px 0 #022528,3px 3px 0 #022528,4px 4px 0 #022528,5px 5px 0 rgba(2,37,40,.92),-1px 0 0 rgba(255,56,232,.82),-2px 0 0 rgba(255,56,232,.36),1px 0 0 rgba(48,235,220,.95),2px 0 0 rgba(48,235,220,.52),0 0 8px rgba(131,255,243,.86),0 0 22px rgba(48,235,220,.44);filter:drop-shadow(0 0 12px rgba(48,235,220,.26));transform:translateZ(0);}
+  .home-title::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.34;background:repeating-linear-gradient(0deg,rgba(255,255,255,.2) 0 2px,transparent 2px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.16) 0 2px,transparent 2px 6px);mix-blend-mode:screen;image-rendering:pixelated;}
+  .home-title span{display:block;font-size:.24em;letter-spacing:.26em;color:transparent;text-transform:uppercase;background:linear-gradient(180deg,#f1fffe 0%,#b8fffa 24%,#83fff3 58%,#30ebdc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(3,34,37,.96);text-shadow:1px 1px 0 #022528,2px 2px 0 #022528,3px 3px 0 rgba(2,37,40,.92),-1px 0 0 rgba(255,56,232,.72),1px 0 0 rgba(48,235,220,.9),0 0 12px rgba(131,255,243,.78);margin-bottom:.14em;}
   .home-tagline{position:relative;width:min(680px,90%);margin:24px auto 0;color:#d8fffb;font-size:clamp(.9rem,2.2vw,1.1rem);line-height:1.55;text-shadow:0 0 14px rgba(48,235,220,.55);}
   .home-tagline strong{color:var(--lime);text-transform:uppercase;letter-spacing:.08em;}
   .home-actions{position:relative;margin-top:30px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -65,6 +65,13 @@
   .boot-box{border:1px solid rgba(131,255,243,.22);border-radius:18px;background:rgba(5,20,23,.82);padding:16px;line-height:1.48;color:#dcfffc;}
   .boot-box b{color:var(--teal1);}
   .boot-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px;}
+
+  /* LOADING */
+  #loading{display:flex;align-items:center;justify-content:center;padding:20px;background:#000;overflow:hidden;}
+  #loadingCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:radial-gradient(circle at 50% 48%,rgba(3,107,120,.24),#000 62%);}
+  .loading-overlay{position:relative;z-index:2;width:min(920px,94vw);height:min(82vh,720px);display:flex;align-items:flex-start;justify-content:center;pointer-events:none;}
+  .loading-label{margin-top:8vh;font-size:clamp(1.2rem,3vw,2rem);letter-spacing:.42em;text-transform:uppercase;color:var(--teal1);text-shadow:0 0 14px rgba(131,255,243,.9),0 0 32px rgba(48,235,220,.34),2px 0 0 var(--pink);animation:loadingBlink 1.05s steps(2,end) infinite;}
+  @keyframes loadingBlink{0%,49%{opacity:1;filter:drop-shadow(0 0 14px rgba(131,255,243,.95));}50%,100%{opacity:.28;filter:drop-shadow(0 0 4px rgba(131,255,243,.35));}}
 
   /* APP */
   #app{min-height:100vh;background:#000;position:relative;padding-bottom:calc(var(--kbdH) + env(safe-area-inset-bottom) + 18px);}
@@ -262,6 +269,13 @@
   </div>
 </section>
 
+<section id="loading" class="screen hidden">
+  <canvas id="loadingCanvas"></canvas>
+  <div class="loading-overlay">
+    <div class="loading-label">Loading</div>
+  </div>
+</section>
+
 <main id="app" class="hidden">
   <header class="topbar">
     <div class="brand-mini">Mario’s Sound Lab</div>
@@ -296,6 +310,7 @@
           <div class="chip-row">
             <button id="cameraBtn" class="chip" type="button" data-tip="Starts or stops the device camera. The feed is transformed into black-background microbits instead of showing raw video.">Camera Mode</button>
             <button id="cameraSoundBtn" class="chip dangerish on" type="button" data-tip="Turns the visual-feedback-to-sound manipulation on or off. Leave it off if you only want visuals without sound modulation.">Visual Sound On</button>
+            <button id="visualDiceBtn" class="chip" type="button" data-tip="Dice button: randomly switches the visual-to-sound reaction style so the same visual motion creates a different kind of sound manipulation.">🎲 Air Bloom</button>
             <button id="switchCameraBtn" class="chip" type="button" data-tip="Attempts to switch between front and back cameras.">Switch Cam</button>
           </div>
           <div class="select-wrap" data-tip="Choose any camera exposed by the browser after permission is granted.">
@@ -443,6 +458,14 @@
   const now = ()=>performance.now();
   const noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
   const tealTones = ['#83fff3','#30ebdc','#0aaea8','#036b78'];
+  const visualFlavors = [
+    {name:'Air Bloom',filter:1.00,space:1.18,delay:.55,chorus:.70,lfo:.52,detune:.34,drive:.05,trem:.05},
+    {name:'Echo Trails',filter:.55,space:.78,delay:1.35,chorus:.36,lfo:.42,detune:.20,drive:.04,trem:.07},
+    {name:'Filter Surge',filter:1.48,space:.44,delay:.34,chorus:.28,lfo:.95,detune:.25,drive:.12,trem:.12},
+    {name:'Glass Chorus',filter:.82,space:.72,delay:.42,chorus:1.38,lfo:.60,detune:.78,drive:.03,trem:.04},
+    {name:'Shimmer Drift',filter:1.10,space:1.30,delay:.78,chorus:.88,lfo:.72,detune:.58,drive:.02,trem:.06},
+    {name:'Pulse Wobble',filter:.72,space:.44,delay:.52,chorus:.40,lfo:1.45,detune:.45,drive:.08,trem:.22}
+  ];
   function colorCount(){ return Math.max(1, Math.round(1 + pct('colorRange') * 7)); }
   function themedHue(index=0, drift=0){
     const base = 176 + (pct('hueShift') - .5) * 72;
@@ -488,13 +511,18 @@
     visualDepth:0,
     visualLift:0,
     visualDecision:0,
+    visualFlavor:0,
+    visualMotionAvg:0,
     lastFrame:null,
     lastVisualFrame:null,
     analyzerData:null,
     lfoPhase:0,
     t0:performance.now(),
     controls:{},
-    selectedPatch:null
+    selectedPatch:null,
+    loadingActive:false,
+    loadingRAF:0,
+    loadingStart:0
   };
 
   const banks = {
@@ -535,9 +563,174 @@
   }
 
   function showScreen(id){
-    ['home','instructions','app'].forEach(s=>$(s).classList.toggle('hidden',s!==id));
+    ['home','instructions','loading','app'].forEach(s=>$(s).classList.toggle('hidden',s!==id));
     state.activeScreen=id;
     if(id==='app') setTimeout(updateKeyboardDockMetrics,30);
+  }
+
+  function setupLoadingScreen(){
+    const canvas=$('loadingCanvas');
+    const ctx=canvas.getContext('2d');
+    const freeBits=[];
+    const pianoPoints=[];
+    let dims={w:0,h:0};
+
+    function resize(){
+      const dpr=Math.min(devicePixelRatio||1,2);
+      canvas.width=Math.floor(innerWidth*dpr);
+      canvas.height=Math.floor(innerHeight*dpr);
+      canvas.style.width=innerWidth+'px';
+      canvas.style.height=innerHeight+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      dims={w:innerWidth,h:innerHeight};
+      buildPianoPoints();
+      buildFreeBits();
+    }
+
+    function buildFreeBits(){
+      freeBits.length=0;
+      const count=Math.min(900, Math.floor(dims.w*dims.h/1400));
+      for(let i=0;i<count;i++){
+        freeBits.push({
+          x:Math.random()*dims.w,
+          y:Math.random()*dims.h,
+          vx:(Math.random()-.5)*.65,
+          vy:(Math.random()-.5)*.65,
+          s:.4+Math.random()*1.4,
+          tone:i%4,
+          alpha:.22+Math.random()*.45
+        });
+      }
+    }
+
+    function addLinePoints(x1,y1,x2,y2,step,scale=1){
+      const dx=x2-x1, dy=y2-y1;
+      const dist=Math.hypot(dx,dy);
+      const n=Math.max(2,Math.floor(dist/step));
+      for(let i=0;i<=n;i++){
+        const p=i/n;
+        pianoPoints.push({x:x1+dx*p,y:y1+dy*p,s:(.5+Math.random()*1.1)*scale,tone:Math.floor(Math.random()*4),alpha:.4+Math.random()*.55});
+      }
+    }
+
+    function addRectFill(x,y,w,h,step,scale=1){
+      for(let yy=y; yy<=y+h; yy+=step){
+        for(let xx=x; xx<=x+w; xx+=step){
+          const jitter=step*.22;
+          pianoPoints.push({x:xx+(Math.random()-.5)*jitter,y:yy+(Math.random()-.5)*jitter,s:(.45+Math.random()*1.0)*scale,tone:Math.floor(Math.random()*4),alpha:.35+Math.random()*.45});
+        }
+      }
+    }
+
+    function buildPianoPoints(){
+      pianoPoints.length=0;
+      const w=Math.min(dims.w*.72, 700);
+      const h=w*.24;
+      const x=(dims.w-w)/2;
+      const y=dims.h*.49;
+      const keyW=w/10;
+      const bodyH=h*.72;
+      // outer piano silhouette
+      addLinePoints(x,y+h*.08,x+w,y+h*.08,5,1.2);
+      addLinePoints(x,y+h*.08,x+w*.96,y+h,5,1.1);
+      addLinePoints(x+w*.96,y+h,x+w*.08,y+h,5,1.1);
+      addLinePoints(x+w*.08,y+h,x,y+h*.08,5,1.1);
+      // white keys region
+      addLinePoints(x+w*.08,y+h*.28,x+w*.92,y+h*.28,4,1.0);
+      addLinePoints(x+w*.08,y+h*.28,x+w*.08,y+h*.86,4,1.0);
+      addLinePoints(x+w*.92,y+h*.28,x+w*.92,y+h*.86,4,1.0);
+      addLinePoints(x+w*.08,y+h*.86,x+w*.92,y+h*.86,4,1.0);
+      for(let i=1;i<10;i++){
+        const xx=x+w*.08 + (w*.84/10)*i;
+        addLinePoints(xx,y+h*.28,xx,y+h*.86,4,.9);
+      }
+      // black key clusters
+      const pattern=[.14,.24,.44,.54,.64,.84];
+      for(const p of pattern){
+        const bx=x+w*p;
+        addRectFill(bx,y+h*.26,keyW*.34,h*.24,5,.9);
+      }
+      // piano stand-ish shadow
+      addLinePoints(x+w*.18,y+h*.98,x+w*.12,y+h*1.26,5,.9);
+      addLinePoints(x+w*.78,y+h*.98,x+w*.84,y+h*1.26,5,.9);
+      addLinePoints(x+w*.28,y+h*1.18,x+w*.72,y+h*1.18,5,.9);
+    }
+
+    function draw(){
+      state.loadingRAF=requestAnimationFrame(draw);
+      if(state.activeScreen!=='loading' || !state.loadingActive) return;
+      const t=(performance.now()-state.loadingStart)/1000;
+      ctx.clearRect(0,0,dims.w,dims.h);
+      ctx.fillStyle='rgba(0,0,0,.22)';
+      ctx.fillRect(0,0,dims.w,dims.h);
+      ctx.globalCompositeOperation='source-over';
+      for(const b of freeBits){
+        b.x += b.vx + Math.sin(t+b.y*.005)*.18;
+        b.y += b.vy + Math.cos(t*1.1+b.x*.004)*.12;
+        if(b.x<-10) b.x=dims.w+10; if(b.x>dims.w+10) b.x=-10;
+        if(b.y<-10) b.y=dims.h+10; if(b.y>dims.h+10) b.y=-10;
+        ctx.globalAlpha=b.alpha;
+        ctx.fillStyle=tealTones[b.tone%tealTones.length];
+        ctx.fillRect(b.x,b.y,b.s,b.s);
+      }
+      ctx.globalCompositeOperation='lighter';
+      for(let i=0;i<pianoPoints.length;i++){
+        const p=pianoPoints[i];
+        const shimmer=.55 + .45*Math.sin(t*2.6 + i*.08);
+        const driftX=Math.sin(t*1.4 + i*.07)*1.7;
+        const driftY=Math.cos(t*1.1 + i*.05)*1.35;
+        ctx.globalAlpha=p.alpha*shimmer;
+        ctx.fillStyle=tealTones[p.tone%tealTones.length];
+        ctx.fillRect(p.x+driftX,p.y+driftY,p.s,p.s);
+        if(Math.random()<.035){
+          ctx.fillRect(p.x+driftX+Math.random()*8-4,p.y+driftY+Math.random()*8-4,.65,.65);
+        }
+      }
+      ctx.globalAlpha=.18;
+      for(let k=0;k<4;k++){
+        ctx.strokeStyle=tealTones[k];
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        const cy=dims.h*.54 + k*8;
+        for(let x=0;x<dims.w;x+=12){
+          const y=cy + Math.sin(x*.01+t*(1.2+k*.18))* (10+k*2);
+          if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha=1;
+      ctx.globalCompositeOperation='source-over';
+    }
+
+    function start(){
+      state.loadingActive=true;
+      state.loadingStart=performance.now();
+      if(state.loadingRAF) cancelAnimationFrame(state.loadingRAF);
+      draw();
+    }
+    function stop(){
+      state.loadingActive=false;
+      if(state.loadingRAF) cancelAnimationFrame(state.loadingRAF);
+      state.loadingRAF=0;
+    }
+
+    window.addEventListener('resize',resize,{passive:true});
+    window.addEventListener('orientationchange',()=>setTimeout(resize,160),{passive:true});
+    resize();
+    state.startLoadingAnimation=start;
+    state.stopLoadingAnimation=stop;
+  }
+
+  async function runMockLoadingSequence(){
+    showScreen('loading');
+    state.startLoadingAnimation && state.startLoadingAnimation();
+    await new Promise(r=>setTimeout(r, 2200));
+    showScreen('app');
+    state.stopLoadingAnimation && state.stopLoadingAnimation();
+    await initAudio();
+    buildKeyboard();
+    updateKeyboardDockMetrics();
+    showToast('Sound Lab online.');
   }
 
   function setupHomeBits(){
@@ -705,41 +898,87 @@
     const n=state.nodes, t=state.audio.currentTime;
     const visualActive = state.cameraSound;
     const tone=pct('tone');
+    const flavor = visualFlavors[state.visualFlavor] || visualFlavors[0];
+
+    // Master amount: this is the user's main "how much should the visualizer affect sound" control.
     const visualAmount = visualActive ? pct('visualAffect') : 0;
-    const gestureDepth = visualActive ? pct('visualSense') * (.35 + pct('gestureMod')*.95) : 0;
-    const light = visualActive ? clamp(state.smooth.brightness + (state.visualLift||0)*.55,0,1) : 0;
+    const gestureDepth = visualActive ? pct('visualSense') * (.45 + pct('gestureMod')*1.05) : 0;
+
+    // The analysis comes from the final rendered visual display: movement, depth, brightness and color fluctuation.
+    const light = visualActive ? clamp(state.smooth.brightness + (state.visualLift||0)*.75,0,1) : 0;
     const motion = visualActive ? clamp(Math.max(state.smooth.motion, state.visualFlux||0),0,1) : 0;
     const depth = visualActive ? clamp(state.visualDepth||0,0,1) : 0;
     const decision = visualActive ? clamp(state.visualDecision||0,0,1) : 0;
-    const eyes = visualActive ? Math.max(state.smooth.eyes, depth*.72) : 0;
-    const head = visualActive ? Math.max(state.smooth.head, motion*.65) : 0;
-    const mouth = visualActive ? Math.max(state.smooth.mouth, decision*.55) : 0;
-    const hands = visualActive ? Math.max(state.smooth.hands, motion*.78) : 0;
 
-    // Generalized visual decision engine:
-    // small visual changes = slight air; big visual changes = obvious filter/space/modulation movement.
-    const visualDrive = clamp((motion*.72 + depth*.48 + decision*.38 + light*.20) * visualAmount * (0.60 + gestureDepth),0,1);
-    const air = clamp((light*1.05 + visualDrive*.85 + eyes*.25)*pct('lightAir')*visualAmount,0,1);
-    const motionPush = clamp((visualDrive*1.35 + hands*.35 + head*.28 + mouth*.18)*(.45+gestureDepth),0,1);
-    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*7600 + visualDrive*5200 + decision*visualAmount*2400;
-    n.master.gain.setTargetAtTime(pct('volume')*.78,t,.028);
-    n.filter.frequency.setTargetAtTime(clamp(cutoff,80,15800),t,.055);
-    n.filter.Q.setTargetAtTime(clamp(.25 + pct('resonance')*14 + visualDrive*5.8 + mouth*gestureDepth*3.5, .2, 22),t,.07);
-    n.phaser.frequency.setTargetAtTime(260+pct('phaser')*2300+head*gestureDepth*1100+visualDrive*900,t,.08);
-    n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + motionPush*.24,0,.78),t,.08);
-    n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + air*.28 + visualDrive*.18,0,.90),t,.09);
-    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + (motionPush*.32 + decision*.12)*visualAmount,0,.88),t,.15);
-    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.20,0,.72),t,.18);
-    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.46 + visualDrive*.14,0,.92),t,.20);
-    n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.14 + visualDrive*.08,0,.86),t,.13);
-    n.drive.curve=makeDriveCurve(pct('drive') + visualDrive*.10);
+    const eyes = visualActive ? Math.max(state.smooth.eyes, depth*.82) : 0;
+    const head = visualActive ? Math.max(state.smooth.head, motion*.75) : 0;
+    const mouth = visualActive ? Math.max(state.smooth.mouth, decision*.62) : 0;
+    const hands = visualActive ? Math.max(state.smooth.hands, motion*.88) : 0;
+
+    // Generalized movement decision:
+    // tiny motion = light air; large motion = obvious musical change. Smoothed to avoid harsh random jumps.
+    const rawDrive = clamp((motion*.80 + depth*.48 + decision*.42 + light*.22) * (0.70 + gestureDepth),0,1);
+    state.visualMotionAvg += (rawDrive - (state.visualMotionAvg||0)) * .10;
+    const visualDrive = clamp((state.visualMotionAvg||0) * visualAmount,0,1);
+
+    const air = clamp((light*.90 + visualDrive*1.10 + eyes*.22)*pct('lightAir')*visualAmount,0,1);
+    const motionPush = clamp((visualDrive*1.55 + hands*.38 + head*.28 + mouth*.18)*(.58+gestureDepth),0,1);
+
+    // Dice flavor changes how visual motion is translated into sound.
+    const filterPush = visualDrive * flavor.filter;
+    const spacePush = visualDrive * flavor.space;
+    const delayPush = motionPush * flavor.delay;
+    const chorusPush = air * flavor.chorus;
+    const lfoPush = motionPush * flavor.lfo;
+    const detunePush = visualDrive * flavor.detune;
+    const tremPush = visualDrive * flavor.trem;
+
+    // Make the response audible on every patch by pushing shared engine nodes directly.
+    const cutoff=180 + Math.pow(tone,1.55)*6200 + air*7800 + filterPush*6200 + decision*visualAmount*2600;
+    const masterPump = 1 - clamp(tremPush*.16 + Math.sin(t*3.7 + state.visualDecision*5)*tremPush*.05,0,.22);
+    n.master.gain.setTargetAtTime(clamp(pct('volume')*.80*masterPump,.02,.90),t,.04);
+
+    n.filter.frequency.setTargetAtTime(clamp(cutoff,70,16500),t,.045);
+    n.filter.Q.setTargetAtTime(clamp(.25 + pct('resonance')*14 + filterPush*7.5 + mouth*gestureDepth*3.5, .2, 24),t,.06);
+    n.phaser.frequency.setTargetAtTime(240+pct('phaser')*2200+head*gestureDepth*1200+filterPush*1200,t,.07);
+
+    n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + lfoPush*.22,0,.82),t,.08);
+    n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + chorusPush*.38 + visualDrive*.13,0,.94),t,.09);
+
+    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + delayPush*.42 + decision*visualAmount*.08,0,.92),t,.13);
+    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + delayPush*.24,0,.76),t,.16);
+
+    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + spacePush*.50 + air*.16,0,.94),t,.18);
+    n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.12 + spacePush*.12,0,.88),t,.12);
+
+    n.drive.curve=makeDriveCurve(clamp(pct('drive') + visualDrive*flavor.drive,.0,1.0));
     n.drive.oversample='2x';
-    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*3.2,t,.13);
-    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*1450 + visualDrive*700,t,.16);
-    n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + motionPush*.0032,t,.10);
-    n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + air*.0024 + visualDrive*.0015,t,.10);
-  }
 
+    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + lfoPush*4.4,t,.12);
+    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + lfoPush*2200 + filterPush*850,t,.13);
+    n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + lfoPush*.0042,t,.09);
+    n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + chorusPush*.0034 + detunePush*.0014,t,.09);
+
+    // Directly touch every active sound-bank voice so the effect cannot be hidden by a patch's normal tone.
+    if(visualActive && state.voices.size){
+      const detMod = (Math.sin(t*1.45 + state.visualDecision*5) * 4 + motionPush*18 + air*7) * visualAmount * flavor.detune;
+      const trem = clamp(1 - (tremPush*.20 + Math.max(0,Math.sin(t*(1.3+lfoPush*5)))*tremPush*.12), .70, 1);
+      state.voices.forEach(v=>{
+        if(!v || !v.gain) return;
+        if(v.baseGain){
+          v.gain.gain.setTargetAtTime(clamp(v.baseGain*trem,.018,.76),t,.08);
+        }
+        if(v.osc1 && typeof v.osc1.detune?.setTargetAtTime === 'function'){
+          const b1 = Number.isFinite(v.baseDetune1) ? v.baseDetune1 : v.osc1.detune.value || 0;
+          const b2 = Number.isFinite(v.baseDetune2) ? v.baseDetune2 : v.osc2?.detune.value || 0;
+          try{
+            v.osc1.detune.setTargetAtTime(b1 - detMod,t,.10);
+            v.osc2?.detune?.setTargetAtTime(b2 + detMod,t,.10);
+          }catch(e){}
+        }
+      });
+    }
+  }
   function addNoteToStack(note){
     state.noteStack = state.noteStack.filter(n=>n!==note);
     state.noteStack.push(note);
@@ -795,7 +1034,7 @@
     gain.gain.setValueAtTime(.0001,t);
     gain.gain.exponentialRampToValueAtTime(target,t+attack);
     osc1.start(t); osc2.start(t);
-    state.voices.set(note,{mode:'poly',note,gain,osc1,osc2,started:now()});
+    state.voices.set(note,{mode:'poly',note,gain,osc1,osc2,started:now(),baseGain:target,baseDetune1:-det,baseDetune2:det + (patch.name.includes('Wurli')?7:0)});
     normalizePolyVoices();
     updateKeyState(note,true);
     updateMeters();
@@ -835,7 +1074,8 @@
         const attack=.003 + Math.pow(pct('attack'),2)*.55;
         existing.gain.gain.cancelScheduledValues(t);
         existing.gain.gain.setValueAtTime(Math.max(.0001,existing.gain.gain.value),t);
-        existing.gain.gain.exponentialRampToValueAtTime(voiceTargetGain(velocity),t+attack);
+        existing.baseGain=voiceTargetGain(velocity);
+        existing.gain.gain.exponentialRampToValueAtTime(existing.baseGain,t+attack);
       }
       updateKeyState(old,false); updateKeyState(note,true); updateMeters(); return;
     }
@@ -852,7 +1092,7 @@
     gain.gain.setValueAtTime(.0001,t);
     gain.gain.exponentialRampToValueAtTime(voiceTargetGain(velocity),t+attack);
     osc1.start(t); osc2.start(t);
-    const voice={mode:'mono',note,gain,osc1,osc2,started:now(),releasing:false};
+    const voice={mode:'mono',note,gain,osc1,osc2,started:now(),releasing:false,baseGain:voiceTargetGain(velocity),baseDetune1:-det,baseDetune2:det};
     state.monoVoice=voice; state.voices.clear(); state.voices.set(note,voice);
     updateKeyState(note,true); updateMeters();
   }
@@ -1459,6 +1699,26 @@
     const labels={poly:'Poly mode: smooth multi-note playing.',chord:'Chord mode: safer stacked harmony with gain protection.',mono:'Mono mode: one note at a time.',legato:'Legato mode: connected notes glide smoothly.'};
     showToast(labels[mode]||'Play mode changed.');
   }
+  function updateVisualDiceUi(){
+    const btn=$('visualDiceBtn');
+    if(!btn) return;
+    const flavor=visualFlavors[state.visualFlavor] || visualFlavors[0];
+    btn.textContent='🎲 '+flavor.name;
+    btn.classList.add('on');
+  }
+  function randomizeVisualFlavor(){
+    const old=state.visualFlavor || 0;
+    if(visualFlavors.length>1){
+      let next=old;
+      while(next===old) next=Math.floor(Math.random()*visualFlavors.length);
+      state.visualFlavor=next;
+    }
+    updateVisualDiceUi();
+    const name=(visualFlavors[state.visualFlavor]||visualFlavors[0]).name;
+    showToast('Visual reaction: '+name+'. Keep Visual → Sound raised to hear it clearly.');
+    applyControls();
+  }
+
   function setCameraSound(on){
     state.cameraSound=!!on;
     const btn=$('cameraSoundBtn');
@@ -1469,7 +1729,7 @@
   function bind(){
     $('launchBtn').addEventListener('click',()=>showScreen('instructions'));
     $('backHomeBtn').addEventListener('click',()=>showScreen('home'));
-    $('enterLabBtn').addEventListener('click',async()=>{ showScreen('app'); await initAudio(); buildKeyboard(); showToast('Sound Lab online.'); });
+    $('enterLabBtn').addEventListener('click',async()=>{ await runMockLoadingSequence(); });
     $('panicBtn').addEventListener('click',emergencyReset);
     $('panicBtn').addEventListener('pointerdown',(e)=>{ e.preventDefault(); emergencyReset(); },{passive:false});
     $('collapseVisualBtn').addEventListener('click',collapseVisual);
@@ -1477,6 +1737,7 @@
     $('guideBtn').addEventListener('click',()=>{ state.guide=!state.guide; document.body.classList.toggle('guide-on',state.guide); $('guideBtn').classList.toggle('on',state.guide); $('tipPop').classList.add('hidden'); showToast(state.guide?'Guide mode on. Tap highlighted controls for info.':'Guide mode off.'); });
     $('cameraBtn').addEventListener('click',()=> state.cameraOn ? stopCamera() : startCamera());
     $('cameraSoundBtn').addEventListener('click',()=>setCameraSound(!state.cameraSound));
+    $('visualDiceBtn').addEventListener('click',randomizeVisualFlavor);
     $('switchCameraBtn').addEventListener('click',switchCamera);
     $('cameraSelect').addEventListener('change',()=>{ if(state.cameraOn) startCamera(); });
     $('stackBtn').addEventListener('click',()=>{ if(state.playMode==='mono' || state.playMode==='legato'){ setPlayMode('chord'); } state.stackMode=!state.stackMode; $('stackBtn').classList.toggle('on',state.stackMode); if(!state.stackMode) releaseAll(false); showToast(state.stackMode?'Stack Chords on. Tap keys to latch or unlatch notes.':'Stack Chords off.'); });
@@ -1519,7 +1780,7 @@
   }
 
   function init(){
-    setupHomeBits(); setupVisual(); setupGuide(); bind(); buildKeyboard(); renderPatches(); selectPatch(0); updateControlLabels(); updateSustainUi(); updateMeters(); updateKeyboardDockMetrics();
+    setupHomeBits(); setupLoadingScreen(); setupVisual(); setupGuide(); bind(); buildKeyboard(); renderPatches(); selectPatch(0); updateControlLabels(); updateSustainUi(); updateVisualDiceUi(); updateMeters(); updateKeyboardDockMetrics();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
