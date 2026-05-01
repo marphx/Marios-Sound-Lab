@@ -48,8 +48,9 @@
   .home-card{position:relative;width:min(850px,94vw);min-height:min(560px,88vh);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:clamp(24px,5vw,64px);border:1px solid rgba(131,255,243,.34);border-radius:32px;background:radial-gradient(circle at 50% 35%,rgba(131,255,243,.12),rgba(3,23,26,.72) 45%,rgba(0,0,0,.94));box-shadow:var(--shadow),inset 0 0 100px rgba(10,174,168,.10);overflow:hidden;}
   .home-card:before{content:"";position:absolute;inset:0;opacity:.45;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.035) 0 1px,transparent 1px 9px);mix-blend-mode:screen;}
   .home-kicker{position:relative;margin:0 0 18px;color:var(--teal1);letter-spacing:.26em;text-transform:uppercase;font-size:.72rem;text-shadow:0 0 14px rgba(131,255,243,.9);}
-  .home-title{position:relative;margin:0;line-height:.92;font-family:"Courier New",ui-monospace,monospace;font-size:clamp(2.8rem,10vw,7rem);font-weight:900;letter-spacing:.08em;color:#edfffd;text-transform:uppercase;text-shadow:2px 0 0 var(--pink),-2px 0 0 var(--teal2),0 0 22px rgba(131,255,243,.55),0 0 2px rgba(131,255,243,.95);filter:drop-shadow(0 0 14px rgba(48,235,220,.42));}
-  .home-title span{display:block;font-size:.24em;letter-spacing:.34em;color:var(--teal1);text-transform:uppercase;text-shadow:2px 0 0 var(--pink),0 0 16px rgba(131,255,243,.72);margin-bottom:.18em;}
+  .home-title{position:relative;margin:0;line-height:.88;font-family:"Old English Text MT","Goudy Text MT","Apple Chancery","URW Chancery L",Georgia,serif;font-size:clamp(3.2rem,11vw,8rem);font-weight:900;letter-spacing:.01em;color:transparent;background:linear-gradient(180deg,#edfffd 0%,#b8fffa 18%,#83fff3 36%,#30ebdc 62%,#0aaea8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px rgba(131,255,243,.16);text-shadow:2px 0 0 rgba(255,56,232,.78),-2px 0 0 rgba(48,235,220,.9),0 4px 0 rgba(0,20,22,.95),0 0 24px rgba(131,255,243,.42),0 0 2px rgba(131,255,243,.95);filter:drop-shadow(0 0 14px rgba(48,235,220,.34));}
+  .home-title::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.24;background:repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 2px,transparent 2px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.14) 0 2px,transparent 2px 6px);mix-blend-mode:screen;}
+  .home-title span{display:block;font-size:.24em;letter-spacing:.28em;color:transparent;text-transform:uppercase;background:linear-gradient(180deg,#d8fffb 0%,#83fff3 50%,#30ebdc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:2px 0 0 rgba(255,56,232,.78),0 0 16px rgba(131,255,243,.72);margin-bottom:.16em;}
   .home-tagline{position:relative;width:min(680px,90%);margin:24px auto 0;color:#d8fffb;font-size:clamp(.9rem,2.2vw,1.1rem);line-height:1.55;text-shadow:0 0 14px rgba(48,235,220,.55);}
   .home-tagline strong{color:var(--lime);text-transform:uppercase;letter-spacing:.08em;}
   .home-actions{position:relative;margin-top:30px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -182,11 +183,21 @@
     .octave{height:60px;}
     .brand-mini{font-size:.75rem;}
   }
+
+  @media (max-width:760px){
+    .visual-zone{position:relative;top:auto;z-index:4;background:#000;padding-bottom:10px;}
+    .visual-shell{overflow:visible;}
+    .visual-body{max-height:none;overflow:visible;}
+    .visual-controls{max-height:none;overflow:visible;}
+    .workspace{margin-top:10px;}
+    .topbar{position:sticky;}
+  }
+
   @media (max-height:560px) and (orientation:landscape){
     :root{--kbdH:118px;}
     .topbar{padding-top:6px;padding-bottom:6px;}
     .meter-pill{padding:4px 7px;}
-    .visual-zone{top:44px;padding-top:6px;}
+    .visual-zone{position:relative;top:auto;padding-top:6px;}
     .visual-body{grid-template-columns:220px 1fr;padding:8px;gap:8px;}
     .visual-square{width:min(220px,36vw);}
     .visual-controls{gap:7px;}
@@ -222,7 +233,7 @@
   <canvas id="homeBits" aria-hidden="true"></canvas>
   <div class="home-card">
     <p class="home-kicker">Retro Glitch // Neon Sound Engine</p>
-    <h1 class="home-title"><span>Mario's</span>Sound Lab</h1>
+    <h1 class="home-title" aria-label="Mario's Sound Lab"><span>Mario's</span>Sound Lab</h1>
     <p class="home-tagline"><strong>You haven’t seen sound move like this.</strong><br/>Not a toy synth. Not a regular visualizer. A motion-reactive black-box instrument built to make sound feel alive.</p>
     <div class="home-actions">
       <button class="btn primary" id="launchBtn" type="button" data-tip="Launches the app intro page before the sound engine opens.">Launch the Lab</button>
@@ -241,7 +252,7 @@
       <div class="boot-box"><b>3. Choose a play mode.</b><br/>Poly is for normal multi-note playing. Chord smooths stacked harmonies with safer gain. Mono is for one-note leads. Legato glides from note to note like a lead synth line.</div>
       <div class="boot-box"><b>4. Sculpt the sound.</b><br/>Use tone, attack, release, detune, LFO, drive, phaser, flanger, chorus, delay, and reverb to hear how each parameter reshapes the patch.</div>
       <div class="boot-box"><b>5. Open the visual engine.</b><br/>The square visual display can blend animated audio feedback with a camera-pixel portrait effect. Collapse it any time and reopen it from the small waveform button.</div>
-      <div class="boot-box"><b>6. Visual sound engine.</b><br/>Camera mode uses the browser’s camera stream with permission, but the sound manipulation now listens to the final visual display itself. Turn Visual Sound on to let brightness, color flow, strand motion, pixel fluctuation, and camera microbit movement gently reshape filter, shimmer, delay, modulation, and space.</div>
+      <div class="boot-box"><b>6. Visual sound engine.</b><br/>Camera mode uses the browser’s camera stream with permission, but the sound manipulation now listens to the final visual display itself. Turn Visual Sound on and raise Visual → Sound to let brightness, color flow, strand motion, pixel fluctuation, and camera microbit movement audibly reshape filter, shimmer, delay, modulation, and space in smooth real time.</div>
     </div>
     <p class="micro">Tip: Bluetooth keyboards connect through the device’s normal Bluetooth settings first; the web app then receives normal key events. Camera access works best from HTTPS, such as GitHub Pages. Use Emergency Reset any time audio, camera, sustain, touch keys, keyboard keys, or controls feel stuck.</p>
     <div class="boot-actions">
@@ -299,6 +310,7 @@
             <div class="range" data-tip="Rotates the visual color family while keeping it centered around the teal Sound Lab theme."><label>Hue <span id="hueShiftVal">50%</span></label><input id="hueShift" type="range" min="0" max="100" value="50"></div>
             <div class="range" data-tip="Controls how many related teal/blue/green accent colors are introduced into the visual strands and microbits."><label>Color Count <span id="colorRangeVal">4 tones</span></label><input id="colorRange" type="range" min="0" max="100" value="45"></div>
             <div class="range" data-tip="Controls how strongly changes in the visual display get converted into smooth sound manipulation."><label>Visual Sense <span id="visualSenseVal">55%</span></label><input id="visualSense" type="range" min="0" max="100" value="55"></div>
+            <div class="range" data-tip="Master amount for converting the analyzed visual motion field into audible filter, shimmer, delay, chorus, and space changes."><label>Visual → Sound <span id="visualAffectVal">75%</span></label><input id="visualAffect" type="range" min="0" max="100" value="75"></div>
           </div>
           <div class="gesture-grid">
             <div class="gesture"><label>Flow / Center <span id="gHeadTxt">0</span></label><div class="bar"><i id="gHead"></i></div></div>
@@ -472,6 +484,10 @@
     motion:0,
     gestures:{head:0,eyes:0,mouth:0,hands:0},
     smooth:{brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0},
+    visualFlux:0,
+    visualDepth:0,
+    visualLift:0,
+    visualDecision:0,
     lastFrame:null,
     lastVisualFrame:null,
     analyzerData:null,
@@ -483,29 +499,29 @@
 
   const banks = {
     leads:[
-      {name:'Neon Prophet',wave:'sawtooth',wave2:'square',lesson:'A bright analog-style lead inspired by classic poly synths. Raise detune for width, add delay for trails, and use the LFO for motion.',values:{volume:70,tone:72,resonance:22,attack:2,release:24,detune:28,phaser:10,flanger:7,chorus:18,delay:28,reverb:22,drive:16,lfoRate:34,lfoDepth:26,gestureMod:45,layerMix:46,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Juno Glass',wave:'sawtooth',wave2:'triangle',lesson:'Smooth chorus-forward synth color. Great for dreamy melodies and soft stacked harmonies.',values:{volume:68,tone:64,resonance:18,attack:6,release:42,detune:20,phaser:8,flanger:4,chorus:54,delay:20,reverb:34,drive:7,lfoRate:22,lfoDepth:18,gestureMod:42,layerMix:58,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Mini Funk Lead',wave:'square',wave2:'sawtooth',lesson:'Punchy lead voice with a funky edge. More resonance makes it talk; more drive makes it bite.',values:{volume:72,tone:58,resonance:34,attack:0,release:18,detune:10,phaser:20,flanger:10,chorus:14,delay:14,reverb:10,drive:28,lfoRate:44,lfoDepth:22,gestureMod:50,layerMix:42,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'DX Shimmer',wave:'sine',wave2:'triangle',lesson:'Digital bell-like lead. Use tone and reverb for sparkle; keep drive low for a clean glassy sound.',values:{volume:66,tone:82,resonance:10,attack:4,release:52,detune:7,phaser:5,flanger:6,chorus:20,delay:32,reverb:42,drive:3,lfoRate:18,lfoDepth:12,gestureMod:38,layerMix:68,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Acid Wire',wave:'sawtooth',wave2:'sawtooth',lesson:'Sharp resonant lead. Push resonance and LFO depth for acid-style movement.',values:{volume:68,tone:62,resonance:64,attack:0,release:16,detune:8,phaser:26,flanger:18,chorus:8,delay:18,reverb:9,drive:34,lfoRate:58,lfoDepth:46,gestureMod:62,layerMix:50,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
+      {name:'Neon Prophet',wave:'sawtooth',wave2:'square',lesson:'A bright analog-style lead inspired by classic poly synths. Raise detune for width, add delay for trails, and use the LFO for motion.',values:{volume:70,tone:72,resonance:22,attack:2,release:24,detune:28,phaser:10,flanger:7,chorus:18,delay:28,reverb:22,drive:16,lfoRate:34,lfoDepth:26,gestureMod:45,layerMix:46,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Juno Glass',wave:'sawtooth',wave2:'triangle',lesson:'Smooth chorus-forward synth color. Great for dreamy melodies and soft stacked harmonies.',values:{volume:68,tone:64,resonance:18,attack:6,release:42,detune:20,phaser:8,flanger:4,chorus:54,delay:20,reverb:34,drive:7,lfoRate:22,lfoDepth:18,gestureMod:42,layerMix:58,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Mini Funk Lead',wave:'square',wave2:'sawtooth',lesson:'Punchy lead voice with a funky edge. More resonance makes it talk; more drive makes it bite.',values:{volume:72,tone:58,resonance:34,attack:0,release:18,detune:10,phaser:20,flanger:10,chorus:14,delay:14,reverb:10,drive:28,lfoRate:44,lfoDepth:22,gestureMod:50,layerMix:42,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'DX Shimmer',wave:'sine',wave2:'triangle',lesson:'Digital bell-like lead. Use tone and reverb for sparkle; keep drive low for a clean glassy sound.',values:{volume:66,tone:82,resonance:10,attack:4,release:52,detune:7,phaser:5,flanger:6,chorus:20,delay:32,reverb:42,drive:3,lfoRate:18,lfoDepth:12,gestureMod:38,layerMix:68,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Acid Wire',wave:'sawtooth',wave2:'sawtooth',lesson:'Sharp resonant lead. Push resonance and LFO depth for acid-style movement.',values:{volume:68,tone:62,resonance:64,attack:0,release:16,detune:8,phaser:26,flanger:18,chorus:8,delay:18,reverb:9,drive:34,lfoRate:58,lfoDepth:46,gestureMod:62,layerMix:50,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}}
     ],
     keys:[
-      {name:'Classic Rhodes',wave:'sine',wave2:'triangle',lesson:'Warm tine-style electric piano. Try increasing chorus for width, delay for space, and tone for bell sparkle.',values:{volume:70,tone:58,resonance:18,attack:4,release:38,detune:14,phaser:12,flanger:8,chorus:26,delay:18,reverb:26,drive:9,lfoRate:28,lfoDepth:18,gestureMod:45,layerMix:52,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Wurli Bark',wave:'square',wave2:'triangle',lesson:'Wurlitzer-style bite with a little growl. Add drive for bark and tremolo movement with the LFO.',values:{volume:72,tone:63,resonance:20,attack:2,release:30,detune:8,phaser:18,flanger:6,chorus:12,delay:10,reverb:18,drive:24,lfoRate:40,lfoDepth:24,gestureMod:50,layerMix:38,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'MK Tines',wave:'sine',wave2:'sine',lesson:'Glossy MK-style tine patch. Brighter tone and more reverb create a polished modern electric piano.',values:{volume:67,tone:76,resonance:8,attack:6,release:54,detune:6,phaser:6,flanger:4,chorus:34,delay:22,reverb:38,drive:4,lfoRate:18,lfoDepth:10,gestureMod:36,layerMix:62,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'FM Velvet EP',wave:'sine',wave2:'sawtooth',lesson:'Soft digital electric piano. The layer mix adds harmonic edge while reverb makes it float.',values:{volume:66,tone:68,resonance:12,attack:8,release:60,detune:5,phaser:4,flanger:6,chorus:18,delay:26,reverb:44,drive:2,lfoRate:16,lfoDepth:8,gestureMod:36,layerMix:72,camBlend:50,frontBlend:35,lightAir:76,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Clav Spark',wave:'square',wave2:'sawtooth',lesson:'Clav-inspired rhythmic key patch. Short release, high tone, and drive make it cut through.',values:{volume:71,tone:80,resonance:28,attack:0,release:12,detune:3,phaser:28,flanger:12,chorus:5,delay:8,reverb:7,drive:22,lfoRate:48,lfoDepth:18,gestureMod:50,layerMix:35,camBlend:50,frontBlend:35,lightAir:52,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
+      {name:'Classic Rhodes',wave:'sine',wave2:'triangle',lesson:'Warm tine-style electric piano. Try increasing chorus for width, delay for space, and tone for bell sparkle.',values:{volume:70,tone:58,resonance:18,attack:4,release:38,detune:14,phaser:12,flanger:8,chorus:26,delay:18,reverb:26,drive:9,lfoRate:28,lfoDepth:18,gestureMod:45,layerMix:52,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Wurli Bark',wave:'square',wave2:'triangle',lesson:'Wurlitzer-style bite with a little growl. Add drive for bark and tremolo movement with the LFO.',values:{volume:72,tone:63,resonance:20,attack:2,release:30,detune:8,phaser:18,flanger:6,chorus:12,delay:10,reverb:18,drive:24,lfoRate:40,lfoDepth:24,gestureMod:50,layerMix:38,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'MK Tines',wave:'sine',wave2:'sine',lesson:'Glossy MK-style tine patch. Brighter tone and more reverb create a polished modern electric piano.',values:{volume:67,tone:76,resonance:8,attack:6,release:54,detune:6,phaser:6,flanger:4,chorus:34,delay:22,reverb:38,drive:4,lfoRate:18,lfoDepth:10,gestureMod:36,layerMix:62,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'FM Velvet EP',wave:'sine',wave2:'sawtooth',lesson:'Soft digital electric piano. The layer mix adds harmonic edge while reverb makes it float.',values:{volume:66,tone:68,resonance:12,attack:8,release:60,detune:5,phaser:4,flanger:6,chorus:18,delay:26,reverb:44,drive:2,lfoRate:16,lfoDepth:8,gestureMod:36,layerMix:72,camBlend:50,frontBlend:35,lightAir:76,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Clav Spark',wave:'square',wave2:'sawtooth',lesson:'Clav-inspired rhythmic key patch. Short release, high tone, and drive make it cut through.',values:{volume:71,tone:80,resonance:28,attack:0,release:12,detune:3,phaser:28,flanger:12,chorus:5,delay:8,reverb:7,drive:22,lfoRate:48,lfoDepth:18,gestureMod:50,layerMix:35,camBlend:50,frontBlend:35,lightAir:52,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}}
     ],
     bass:[
-      {name:'Moog Sub',wave:'sawtooth',wave2:'sine',lesson:'Round analog sub bass. Keep reverb low, use tone for growl, and add a little drive for weight.',values:{volume:74,tone:38,resonance:22,attack:0,release:18,detune:8,phaser:4,flanger:4,chorus:4,delay:3,reverb:2,drive:18,lfoRate:22,lfoDepth:10,gestureMod:45,layerMix:32,camBlend:50,frontBlend:35,lightAir:35,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Juno Rubber',wave:'sawtooth',wave2:'square',lesson:'Rubbery synth bass with slight chorus. Add resonance for bounce and LFO for movement.',values:{volume:72,tone:45,resonance:38,attack:0,release:22,detune:12,phaser:8,flanger:6,chorus:14,delay:2,reverb:3,drive:14,lfoRate:36,lfoDepth:26,gestureMod:52,layerMix:45,camBlend:50,frontBlend:35,lightAir:38,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'808 Silk',wave:'sine',wave2:'sine',lesson:'Clean deep sine bass. Use release for length and drive for subtle harmonics.',values:{volume:76,tone:28,resonance:5,attack:0,release:42,detune:0,phaser:0,flanger:0,chorus:0,delay:0,reverb:0,drive:10,lfoRate:8,lfoDepth:0,gestureMod:30,layerMix:20,camBlend:50,frontBlend:35,lightAir:25,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Acid Bassline',wave:'sawtooth',wave2:'square',lesson:'Classic resonant bassline energy. Resonance and LFO depth are the attitude controls.',values:{volume:72,tone:52,resonance:70,attack:0,release:12,detune:5,phaser:18,flanger:10,chorus:4,delay:8,reverb:2,drive:30,lfoRate:62,lfoDepth:42,gestureMod:64,layerMix:42,camBlend:50,frontBlend:35,lightAir:42,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
-      {name:'Future Reese',wave:'sawtooth',wave2:'sawtooth',lesson:'Wide detuned bass. Detune creates the beating movement; keep the tone controlled for power.',values:{volume:70,tone:42,resonance:20,attack:0,release:28,detune:44,phaser:10,flanger:24,chorus:28,delay:3,reverb:5,drive:22,lfoRate:24,lfoDepth:16,gestureMod:54,layerMix:50,camBlend:50,frontBlend:35,lightAir:36,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
+      {name:'Moog Sub',wave:'sawtooth',wave2:'sine',lesson:'Round analog sub bass. Keep reverb low, use tone for growl, and add a little drive for weight.',values:{volume:74,tone:38,resonance:22,attack:0,release:18,detune:8,phaser:4,flanger:4,chorus:4,delay:3,reverb:2,drive:18,lfoRate:22,lfoDepth:10,gestureMod:45,layerMix:32,camBlend:50,frontBlend:35,lightAir:35,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Juno Rubber',wave:'sawtooth',wave2:'square',lesson:'Rubbery synth bass with slight chorus. Add resonance for bounce and LFO for movement.',values:{volume:72,tone:45,resonance:38,attack:0,release:22,detune:12,phaser:8,flanger:6,chorus:14,delay:2,reverb:3,drive:14,lfoRate:36,lfoDepth:26,gestureMod:52,layerMix:45,camBlend:50,frontBlend:35,lightAir:38,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'808 Silk',wave:'sine',wave2:'sine',lesson:'Clean deep sine bass. Use release for length and drive for subtle harmonics.',values:{volume:76,tone:28,resonance:5,attack:0,release:42,detune:0,phaser:0,flanger:0,chorus:0,delay:0,reverb:0,drive:10,lfoRate:8,lfoDepth:0,gestureMod:30,layerMix:20,camBlend:50,frontBlend:35,lightAir:25,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Acid Bassline',wave:'sawtooth',wave2:'square',lesson:'Classic resonant bassline energy. Resonance and LFO depth are the attitude controls.',values:{volume:72,tone:52,resonance:70,attack:0,release:12,detune:5,phaser:18,flanger:10,chorus:4,delay:8,reverb:2,drive:30,lfoRate:62,lfoDepth:42,gestureMod:64,layerMix:42,camBlend:50,frontBlend:35,lightAir:42,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}},
+      {name:'Future Reese',wave:'sawtooth',wave2:'sawtooth',lesson:'Wide detuned bass. Detune creates the beating movement; keep the tone controlled for power.',values:{volume:70,tone:42,resonance:20,attack:0,release:28,detune:44,phaser:10,flanger:24,chorus:28,delay:3,reverb:5,drive:22,lfoRate:24,lfoDepth:16,gestureMod:54,layerMix:50,camBlend:50,frontBlend:35,lightAir:36,bitDetail:72,hueShift:50,colorRange:45,visualSense:55,visualAffect:75}}
     ]
   };
 
-  const controlIds = ['volume','tone','resonance','attack','release','detune','glide','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail','hueShift','colorRange','visualSense'];
+  const controlIds = ['volume','tone','resonance','attack','release','detune','glide','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail','hueShift','colorRange','visualSense','visualAffect'];
 
   const physicalLayout = [
     {code:'KeyZ',key:'Z',offset:0,black:false,row:'lower'},{code:'KeyS',key:'S',offset:1,black:true,row:'lower'},{code:'KeyX',key:'X',offset:2,black:false,row:'lower'},{code:'KeyD',key:'D',offset:3,black:true,row:'lower'},{code:'KeyC',key:'C',offset:4,black:false,row:'lower'},{code:'KeyV',key:'V',offset:5,black:false,row:'lower'},{code:'KeyG',key:'G',offset:6,black:true,row:'lower'},{code:'KeyB',key:'B',offset:7,black:false,row:'lower'},{code:'KeyH',key:'H',offset:8,black:true,row:'lower'},{code:'KeyN',key:'N',offset:9,black:false,row:'lower'},{code:'KeyJ',key:'J',offset:10,black:true,row:'lower'},{code:'KeyM',key:'M',offset:11,black:false,row:'lower'},
@@ -689,32 +705,39 @@
     const n=state.nodes, t=state.audio.currentTime;
     const visualActive = state.cameraSound;
     const tone=pct('tone');
-    const light = visualActive ? state.smooth.brightness : 0;
-    const motion = visualActive ? state.smooth.motion : 0;
-    const gestureDepth = visualActive ? pct('visualSense') * (.32 + pct('gestureMod')*.78) : 0;
-    const eyes = visualActive ? state.smooth.eyes : 0;
-    const head = visualActive ? state.smooth.head : 0;
-    const mouth = visualActive ? state.smooth.mouth : 0;
-    const hands = visualActive ? state.smooth.hands : 0;
-    const air = clamp((light*1.15 + motion*.62 + eyes*.20)*pct('lightAir'),0,1);
-    const motionPush = clamp((motion*1.25 + hands*.70 + head*.48 + eyes*.42 + mouth*.35)*gestureDepth,0,1);
-    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*5600 + eyes*gestureDepth*1900 + hands*gestureDepth*650;
+    const visualAmount = visualActive ? pct('visualAffect') : 0;
+    const gestureDepth = visualActive ? pct('visualSense') * (.35 + pct('gestureMod')*.95) : 0;
+    const light = visualActive ? clamp(state.smooth.brightness + (state.visualLift||0)*.55,0,1) : 0;
+    const motion = visualActive ? clamp(Math.max(state.smooth.motion, state.visualFlux||0),0,1) : 0;
+    const depth = visualActive ? clamp(state.visualDepth||0,0,1) : 0;
+    const decision = visualActive ? clamp(state.visualDecision||0,0,1) : 0;
+    const eyes = visualActive ? Math.max(state.smooth.eyes, depth*.72) : 0;
+    const head = visualActive ? Math.max(state.smooth.head, motion*.65) : 0;
+    const mouth = visualActive ? Math.max(state.smooth.mouth, decision*.55) : 0;
+    const hands = visualActive ? Math.max(state.smooth.hands, motion*.78) : 0;
+
+    // Generalized visual decision engine:
+    // small visual changes = slight air; big visual changes = obvious filter/space/modulation movement.
+    const visualDrive = clamp((motion*.72 + depth*.48 + decision*.38 + light*.20) * visualAmount * (0.60 + gestureDepth),0,1);
+    const air = clamp((light*1.05 + visualDrive*.85 + eyes*.25)*pct('lightAir')*visualAmount,0,1);
+    const motionPush = clamp((visualDrive*1.35 + hands*.35 + head*.28 + mouth*.18)*(.45+gestureDepth),0,1);
+    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*7600 + visualDrive*5200 + decision*visualAmount*2400;
     n.master.gain.setTargetAtTime(pct('volume')*.78,t,.028);
-    n.filter.frequency.setTargetAtTime(clamp(cutoff,80,13200),t,.07);
-    n.filter.Q.setTargetAtTime(.25 + pct('resonance')*14 + mouth*gestureDepth*5.5,t,.08);
-    n.phaser.frequency.setTargetAtTime(260+pct('phaser')*2300+head*gestureDepth*900,t,.09);
-    n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + hands*gestureDepth*.16,0,.72),t,.08);
-    n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + air*.20,0,.86),t,.09);
-    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + (hands*.18 + motion*.10)*gestureDepth,0,.82),t,.18);
-    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.13,0,.66),t,.20);
-    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.36,0,.88),t,.22);
-    n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.10,0,.82),t,.13);
-    n.drive.curve=makeDriveCurve(pct('drive'));
+    n.filter.frequency.setTargetAtTime(clamp(cutoff,80,15800),t,.055);
+    n.filter.Q.setTargetAtTime(clamp(.25 + pct('resonance')*14 + visualDrive*5.8 + mouth*gestureDepth*3.5, .2, 22),t,.07);
+    n.phaser.frequency.setTargetAtTime(260+pct('phaser')*2300+head*gestureDepth*1100+visualDrive*900,t,.08);
+    n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + motionPush*.24,0,.78),t,.08);
+    n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + air*.28 + visualDrive*.18,0,.90),t,.09);
+    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + (motionPush*.32 + decision*.12)*visualAmount,0,.88),t,.15);
+    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.20,0,.72),t,.18);
+    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.46 + visualDrive*.14,0,.92),t,.20);
+    n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.14 + visualDrive*.08,0,.86),t,.13);
+    n.drive.curve=makeDriveCurve(pct('drive') + visualDrive*.10);
     n.drive.oversample='2x';
-    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*1.8,t,.18);
-    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*620,t,.20);
-    n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + hands*gestureDepth*.0017,t,.11);
-    n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + light*.0012,t,.11);
+    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*3.2,t,.13);
+    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*1450 + visualDrive*700,t,.16);
+    n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + motionPush*.0032,t,.10);
+    n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + air*.0024 + visualDrive*.0015,t,.10);
   }
 
   function addNoteToStack(note){
@@ -925,7 +948,7 @@
       try{ await state.audio.close(); }catch(e){}
     }
     state.audio=null; state.nodes=null; state.voices.clear(); state.monoVoice=null; state.lastFrame=null; state.lastVisualFrame=null;
-    state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0};
+    state.brightness=0; state.motion=0; state.visualFlux=0; state.visualDepth=0; state.visualLift=0; state.visualDecision=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0};
     resetPatch();
     if(state.activeScreen==='app') await initAudio();
     updateGestureMeters(); updateMeters();
@@ -1153,7 +1176,7 @@
   }
   function stopCamera(){
     if(state.cameraStream){ state.cameraStream.getTracks().forEach(t=>t.stop()); }
-    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; state.lastVisualFrame=null; state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0}; $('cameraBtn').classList.remove('on');
+    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; state.lastVisualFrame=null; state.brightness=0; state.motion=0; state.visualFlux=0; state.visualDepth=0; state.visualLift=0; state.visualDecision=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0}; $('cameraBtn').classList.remove('on');
     showToast('Camera mode off.');
   }
   async function listCameras(){
@@ -1270,20 +1293,23 @@
   }
 
   function analyzeVisualFeedback(canvas,w,h,t,visualSample,vctx){
-    const size=56;
+    // Read the actual rendered visual canvas at low resolution to keep CPU light.
+    // The result is intentionally generalized: overall movement, brightness depth,
+    // and color fluctuation become slow musical decisions rather than noisy tracking.
+    const size=44;
     if(visualSample.width!==size){ visualSample.width=size; visualSample.height=size; state.lastVisualFrame=null; }
     try{ vctx.drawImage(canvas,0,0,size,size); }catch(e){ return; }
     let img;
     try{ img=vctx.getImageData(0,0,size,size).data; }catch(e){ return; }
     const prev=state.lastVisualFrame;
-    let total=0, count=0, diffTotal=0, colorTotal=0;
+    let total=0, count=0, diffTotal=0, colorTotal=0, variance=0;
     const zones={top:0,mid:0,low:0,edge:0,tc:0,mc:0,lc:0,ec:0};
     const next=new Float32Array(size*size);
     for(let y=0;y<size;y++){
       for(let x=0;x<size;x++){
         const p=y*size+x, i=p*4;
         const r=img[i]/255, g=img[i+1]/255, b=img[i+2]/255;
-        const lum=(r+g+b)/3;
+        const lum=(r*.30+g*.55+b*.15);
         const chroma=Math.max(r,g,b)-Math.min(r,g,b);
         next[p]=lum;
         total+=lum; colorTotal+=chroma; count++;
@@ -1291,33 +1317,46 @@
         if(prev) d=Math.abs(lum-(prev[p]||0));
         diffTotal+=d;
         const yn=y/size, xn=x/size;
-        if(yn<.34){ zones.top+=d+chroma*.015; zones.tc++; }
-        else if(yn<.68){ zones.mid+=d+chroma*.015; zones.mc++; }
-        else { zones.low+=d+chroma*.015; zones.lc++; }
-        if(xn<.23 || xn>.77){ zones.edge+=d+chroma*.018; zones.ec++; }
+        if(yn<.34){ zones.top+=d+chroma*.025; zones.tc++; }
+        else if(yn<.68){ zones.mid+=d+chroma*.025; zones.mc++; }
+        else { zones.low+=d+chroma*.025; zones.lc++; }
+        if(xn<.22 || xn>.78){ zones.edge+=d+chroma*.030; zones.ec++; }
       }
     }
+    const avg=total/Math.max(1,count);
+    for(let i=0;i<next.length;i++) variance+=Math.abs(next[i]-avg);
+    variance/=Math.max(1,count);
     state.lastVisualFrame=next;
-    const brightness=clamp(total/Math.max(1,count)*2.6,0,1);
-    const motion=clamp(diffTotal/Math.max(1,count)*20 + colorTotal/Math.max(1,count)*.22,0,1);
+
+    const rawMotion=diffTotal/Math.max(1,count);
+    const rawColor=colorTotal/Math.max(1,count);
+    const rawDepth=variance;
+    // Aggressive enough to hear, but clamped and smoothed to stay musical.
+    const sensitivity=.35 + pct('visualSense')*2.40;
+    const targetLift=clamp(avg*3.2*sensitivity,0,1);
+    const targetFlux=clamp((rawMotion*72 + rawColor*.55 + rawDepth*2.1)*sensitivity,0,1);
+    const targetDepth=clamp((rawDepth*3.6 + rawColor*.35)*sensitivity,0,1);
+    const decisionTarget=clamp(targetFlux*.68 + targetDepth*.24 + targetLift*.08,0,1);
+
+    state.visualLift += (targetLift-state.visualLift)*.10;
+    state.visualFlux += (targetFlux-state.visualFlux)*.16;
+    state.visualDepth += (targetDepth-state.visualDepth)*.12;
+    state.visualDecision += (decisionTarget-state.visualDecision)*.08;
+
     const sensed={
-      head:clamp((zones.mid/Math.max(1,zones.mc))*34,0,1),
-      eyes:clamp((zones.top/Math.max(1,zones.tc))*36,0,1),
-      mouth:clamp((zones.low/Math.max(1,zones.lc))*34,0,1),
-      hands:clamp((zones.edge/Math.max(1,zones.ec))*42,0,1)
+      head:clamp((zones.mid/Math.max(1,zones.mc))*92*sensitivity,0,1),
+      eyes:clamp((zones.top/Math.max(1,zones.tc))*96*sensitivity,0,1),
+      mouth:clamp((zones.low/Math.max(1,zones.lc))*90*sensitivity,0,1),
+      hands:clamp((zones.edge/Math.max(1,zones.ec))*110*sensitivity,0,1)
     };
-    const sensitivity=.22 + pct('visualSense')*1.55;
-    const targetBrightness=clamp((state.cameraOn ? Math.max(state.brightness,brightness) : brightness)*sensitivity,0,1);
-    const targetMotion=clamp(Math.max(state.motion,motion)*sensitivity,0,1);
-    state.smooth.brightness += (targetBrightness-state.smooth.brightness)*.12;
-    state.smooth.motion += (targetMotion-state.smooth.motion)*.14;
+    state.smooth.brightness += (state.visualLift-state.smooth.brightness)*.12;
+    state.smooth.motion += (state.visualFlux-state.smooth.motion)*.18;
     ['head','eyes','mouth','hands'].forEach(k=>{
-      const target=clamp(Math.max(state.gestures[k]||0,sensed[k]||0)*sensitivity,0,1);
-      state.smooth[k] += (target-state.smooth[k])*.13;
+      state.smooth[k] += ((sensed[k]||0)-state.smooth[k])*.14;
     });
     state.gestures={head:state.smooth.head,eyes:state.smooth.eyes,mouth:state.smooth.mouth,hands:state.smooth.hands};
-    state.brightness=targetBrightness;
-    state.motion=targetMotion;
+    state.brightness=state.visualLift;
+    state.motion=state.visualFlux;
     updateGestureMeters();
     updateMeters();
   }
