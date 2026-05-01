@@ -231,14 +231,14 @@
 <section id="instructions" class="screen hidden">
   <div class="boot-card">
     <h2>Boot Sequence</h2>
-    <p style="color:#dffffc;line-height:1.55;max-width:850px;">Mario’s Sound Lab is designed as a playable synth-design classroom and performance toy. You can play the fixed two-octave piano by touch or with a connected Bluetooth/physical keyboard, switch between iconic sound banks, choose Poly / Chord / Mono / Legato playing modes, sculpt patches with studio-style controls, and watch the visual engine react to notes, chords, camera brightness, facial movement zones, and hand motion in real time.</p>
+    <p style="color:#dffffc;line-height:1.55;max-width:850px;">Mario’s Sound Lab is designed as a playable synth-design classroom and performance toy. You can play the fixed two-octave piano by touch or with a connected Bluetooth/physical keyboard, switch between iconic sound banks, choose Poly / Chord / Mono / Legato playing modes, sculpt patches with studio-style controls, and watch the visual engine react to notes, chords, camera microbits, note energy, brightness, and visual-motion fluctuations in real time.</p>
     <div class="boot-grid">
       <div class="boot-box"><b>1. Play the piano.</b><br/>The piano stays pinned to the bottom so it always feels like an instrument. Touch the keys, or pair a Bluetooth/physical keyboard and use it as a mock piano controller.</div>
       <div class="boot-box"><b>2. Use the keyboard map.</b><br/>Tap “Key Map” in the piano dock to open a collapsible reference. Lower octave: Z S X D C V G B H N J M. Upper octave: Q 2 W 3 E R 5 T 6 Y 7 U. Space toggles Sustain.</div>
       <div class="boot-box"><b>3. Choose a play mode.</b><br/>Poly is for normal multi-note playing. Chord smooths stacked harmonies with safer gain. Mono is for one-note leads. Legato glides from note to note like a lead synth line.</div>
       <div class="boot-box"><b>4. Sculpt the sound.</b><br/>Use tone, attack, release, detune, LFO, drive, phaser, flanger, chorus, delay, and reverb to hear how each parameter reshapes the patch.</div>
       <div class="boot-box"><b>5. Open the visual engine.</b><br/>The square visual display can blend animated audio feedback with a camera-pixel portrait effect. Collapse it any time and reopen it from the small waveform button.</div>
-      <div class="boot-box"><b>6. Camera expression.</b><br/>Camera mode uses the browser’s camera stream with permission. Camera Sound can be turned on or off. When on, light, head-zone movement, eye-zone motion, mouth/lower motion, and hand/edge motion smoothly reshape filter, shimmer, delay, modulation, and space.</div>
+      <div class="boot-box"><b>6. Visual sound engine.</b><br/>Camera mode uses the browser’s camera stream with permission, but the sound manipulation now listens to the final visual display itself. Turn Visual Sound on to let brightness, color flow, strand motion, pixel fluctuation, and camera microbit movement gently reshape filter, shimmer, delay, modulation, and space.</div>
     </div>
     <p class="micro">Tip: Bluetooth keyboards connect through the device’s normal Bluetooth settings first; the web app then receives normal key events. Camera access works best from HTTPS, such as GitHub Pages. Use Emergency Reset any time audio, camera, sustain, touch keys, keyboard keys, or controls feel stuck.</p>
     <div class="boot-actions">
@@ -281,8 +281,7 @@
         <div class="visual-controls">
           <div class="chip-row">
             <button id="cameraBtn" class="chip" type="button" data-tip="Starts or stops the device camera. The feed is transformed into black-background microbits instead of showing raw video.">Camera Mode</button>
-            <button id="faceBtn" class="chip" type="button" data-tip="Turns on browser-safe expression tracking. It overlays simulated facial/hand feature guides and uses motion zones to shape sound.">Face Track</button>
-            <button id="cameraSoundBtn" class="chip dangerish on" type="button" data-tip="Turns the spontaneous camera-to-sound manipulation on or off. Leave it off if you only want the visual display.">Camera Sound On</button>
+            <button id="cameraSoundBtn" class="chip dangerish on" type="button" data-tip="Turns the visual-feedback-to-sound manipulation on or off. Leave it off if you only want visuals without sound modulation.">Visual Sound On</button>
             <button id="switchCameraBtn" class="chip" type="button" data-tip="Attempts to switch between front and back cameras.">Switch Cam</button>
           </div>
           <div class="select-wrap" data-tip="Choose any camera exposed by the browser after permission is granted.">
@@ -292,14 +291,17 @@
           <div class="control-grid two">
             <div class="range" data-tip="Controls how much of the camera-pixel image blends with the audio visualizer."><label>Cam Blend <span id="camBlendVal">50%</span></label><input id="camBlend" type="range" min="0" max="100" value="50"></div>
             <div class="range" data-tip="Moves the foreground priority between the generated audio strands and the camera microbit portrait."><label>Foreground <span id="frontBlendVal">Audio</span></label><input id="frontBlend" type="range" min="0" max="100" value="35"></div>
-            <div class="range" data-tip="How strongly brightness from the camera adds airy shimmer, filter lift, and spaciousness."><label>Light → Air <span id="lightAirVal">62%</span></label><input id="lightAir" type="range" min="0" max="100" value="62"></div>
+            <div class="range" data-tip="How strongly brightness inside the final visual display adds airy shimmer, filter lift, and spaciousness."><label>Light → Air <span id="lightAirVal">62%</span></label><input id="lightAir" type="range" min="0" max="100" value="62"></div>
             <div class="range" data-tip="Controls how many tiny camera microbits are drawn. Higher is more detailed but heavier on older phones."><label>Bit Detail <span id="bitDetailVal">72%</span></label><input id="bitDetail" type="range" min="20" max="100" value="72"></div>
+            <div class="range" data-tip="Rotates the visual color family while keeping it centered around the teal Sound Lab theme."><label>Hue <span id="hueShiftVal">50%</span></label><input id="hueShift" type="range" min="0" max="100" value="50"></div>
+            <div class="range" data-tip="Controls how many related teal/blue/green accent colors are introduced into the visual strands and microbits."><label>Color Count <span id="colorRangeVal">4 tones</span></label><input id="colorRange" type="range" min="0" max="100" value="45"></div>
+            <div class="range" data-tip="Controls how strongly changes in the visual display get converted into smooth sound manipulation."><label>Visual Sense <span id="visualSenseVal">55%</span></label><input id="visualSense" type="range" min="0" max="100" value="55"></div>
           </div>
           <div class="gesture-grid">
-            <div class="gesture"><label>Head / Center <span id="gHeadTxt">0</span></label><div class="bar"><i id="gHead"></i></div></div>
-            <div class="gesture"><label>Eyes / Top <span id="gEyesTxt">0</span></label><div class="bar"><i id="gEyes"></i></div></div>
-            <div class="gesture"><label>Mouth / Lower <span id="gMouthTxt">0</span></label><div class="bar"><i id="gMouth"></i></div></div>
-            <div class="gesture"><label>Hands / Edges <span id="gHandsTxt">0</span></label><div class="bar"><i id="gHands"></i></div></div>
+            <div class="gesture"><label>Flow / Center <span id="gHeadTxt">0</span></label><div class="bar"><i id="gHead"></i></div></div>
+            <div class="gesture"><label>Spark / Top <span id="gEyesTxt">0</span></label><div class="bar"><i id="gEyes"></i></div></div>
+            <div class="gesture"><label>Pulse / Low <span id="gMouthTxt">0</span></label><div class="bar"><i id="gMouth"></i></div></div>
+            <div class="gesture"><label>Edge Motion <span id="gHandsTxt">0</span></label><div class="bar"><i id="gHands"></i></div></div>
           </div>
         </div>
       </div>
@@ -358,7 +360,7 @@
         <div class="control-grid two">
           <div class="range" data-tip="Speed of the low-frequency oscillator that moves the filter and tremolo."><label>LFO Rate <span id="lfoRateVal">28%</span></label><input id="lfoRate" type="range" min="0" max="100" value="28"></div>
           <div class="range" data-tip="Depth of the LFO movement."><label>LFO Depth <span id="lfoDepthVal">18%</span></label><input id="lfoDepth" type="range" min="0" max="100" value="18"></div>
-          <div class="range" data-tip="How strongly camera motion can push sound modulation when Face Track is on."><label>Gesture Mod <span id="gestureModVal">45%</span></label><input id="gestureMod" type="range" min="0" max="100" value="45"></div>
+          <div class="range" data-tip="How strongly the visual feedback analysis can push modulation, delay, shimmer, and filter movement."><label>Flux Mod <span id="gestureModVal">45%</span></label><input id="gestureMod" type="range" min="0" max="100" value="45"></div>
           <div class="range" data-tip="Balances the two oscillator layers in each patch."><label>Layer Mix <span id="layerMixVal">52%</span></label><input id="layerMix" type="range" min="0" max="100" value="52"></div>
         </div>
         <div class="export-row">
@@ -424,6 +426,17 @@
   const now = ()=>performance.now();
   const noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
   const tealTones = ['#83fff3','#30ebdc','#0aaea8','#036b78'];
+  function colorCount(){ return Math.max(1, Math.round(1 + pct('colorRange') * 7)); }
+  function themedHue(index=0, drift=0){
+    const base = 176 + (pct('hueShift') - .5) * 72;
+    const count = colorCount();
+    const spread = 10 + pct('colorRange') * 92;
+    const slot = count <= 1 ? 0 : ((index % count) / (count - 1) - .5) * spread;
+    return (base + slot + drift + 360) % 360;
+  }
+  function themedColor(index=0, alpha=1, drift=0, light=62){
+    return `hsla(${themedHue(index,drift)},100%,${light}%,${alpha})`;
+  }
 
   const state = {
     activeScreen:'home',
@@ -446,7 +459,6 @@
     visualOpen:true,
     guide:false,
     cameraOn:false,
-    faceTrack:false,
     cameraFacing:'user',
     cameraStream:null,
     cameraDevices:[],
@@ -455,9 +467,8 @@
     gestures:{head:0,eyes:0,mouth:0,hands:0},
     smooth:{brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0},
     lastFrame:null,
+    lastVisualFrame:null,
     analyzerData:null,
-    faceDetector:null,
-    lastFace:null,
     lfoPhase:0,
     t0:performance.now(),
     controls:{},
@@ -466,29 +477,29 @@
 
   const banks = {
     leads:[
-      {name:'Neon Prophet',wave:'sawtooth',wave2:'square',lesson:'A bright analog-style lead inspired by classic poly synths. Raise detune for width, add delay for trails, and use the LFO for motion.',values:{volume:70,tone:72,resonance:22,attack:2,release:24,detune:28,phaser:10,flanger:7,chorus:18,delay:28,reverb:22,drive:16,lfoRate:34,lfoDepth:26,gestureMod:45,layerMix:46,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72}},
-      {name:'Juno Glass',wave:'sawtooth',wave2:'triangle',lesson:'Smooth chorus-forward synth color. Great for dreamy melodies and soft stacked harmonies.',values:{volume:68,tone:64,resonance:18,attack:6,release:42,detune:20,phaser:8,flanger:4,chorus:54,delay:20,reverb:34,drive:7,lfoRate:22,lfoDepth:18,gestureMod:42,layerMix:58,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72}},
-      {name:'Mini Funk Lead',wave:'square',wave2:'sawtooth',lesson:'Punchy lead voice with a funky edge. More resonance makes it talk; more drive makes it bite.',values:{volume:72,tone:58,resonance:34,attack:0,release:18,detune:10,phaser:20,flanger:10,chorus:14,delay:14,reverb:10,drive:28,lfoRate:44,lfoDepth:22,gestureMod:50,layerMix:42,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72}},
-      {name:'DX Shimmer',wave:'sine',wave2:'triangle',lesson:'Digital bell-like lead. Use tone and reverb for sparkle; keep drive low for a clean glassy sound.',values:{volume:66,tone:82,resonance:10,attack:4,release:52,detune:7,phaser:5,flanger:6,chorus:20,delay:32,reverb:42,drive:3,lfoRate:18,lfoDepth:12,gestureMod:38,layerMix:68,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72}},
-      {name:'Acid Wire',wave:'sawtooth',wave2:'sawtooth',lesson:'Sharp resonant lead. Push resonance and LFO depth for acid-style movement.',values:{volume:68,tone:62,resonance:64,attack:0,release:16,detune:8,phaser:26,flanger:18,chorus:8,delay:18,reverb:9,drive:34,lfoRate:58,lfoDepth:46,gestureMod:62,layerMix:50,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72}}
+      {name:'Neon Prophet',wave:'sawtooth',wave2:'square',lesson:'A bright analog-style lead inspired by classic poly synths. Raise detune for width, add delay for trails, and use the LFO for motion.',values:{volume:70,tone:72,resonance:22,attack:2,release:24,detune:28,phaser:10,flanger:7,chorus:18,delay:28,reverb:22,drive:16,lfoRate:34,lfoDepth:26,gestureMod:45,layerMix:46,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Juno Glass',wave:'sawtooth',wave2:'triangle',lesson:'Smooth chorus-forward synth color. Great for dreamy melodies and soft stacked harmonies.',values:{volume:68,tone:64,resonance:18,attack:6,release:42,detune:20,phaser:8,flanger:4,chorus:54,delay:20,reverb:34,drive:7,lfoRate:22,lfoDepth:18,gestureMod:42,layerMix:58,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Mini Funk Lead',wave:'square',wave2:'sawtooth',lesson:'Punchy lead voice with a funky edge. More resonance makes it talk; more drive makes it bite.',values:{volume:72,tone:58,resonance:34,attack:0,release:18,detune:10,phaser:20,flanger:10,chorus:14,delay:14,reverb:10,drive:28,lfoRate:44,lfoDepth:22,gestureMod:50,layerMix:42,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'DX Shimmer',wave:'sine',wave2:'triangle',lesson:'Digital bell-like lead. Use tone and reverb for sparkle; keep drive low for a clean glassy sound.',values:{volume:66,tone:82,resonance:10,attack:4,release:52,detune:7,phaser:5,flanger:6,chorus:20,delay:32,reverb:42,drive:3,lfoRate:18,lfoDepth:12,gestureMod:38,layerMix:68,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Acid Wire',wave:'sawtooth',wave2:'sawtooth',lesson:'Sharp resonant lead. Push resonance and LFO depth for acid-style movement.',values:{volume:68,tone:62,resonance:64,attack:0,release:16,detune:8,phaser:26,flanger:18,chorus:8,delay:18,reverb:9,drive:34,lfoRate:58,lfoDepth:46,gestureMod:62,layerMix:50,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
     ],
     keys:[
-      {name:'Classic Rhodes',wave:'sine',wave2:'triangle',lesson:'Warm tine-style electric piano. Try increasing chorus for width, delay for space, and tone for bell sparkle.',values:{volume:70,tone:58,resonance:18,attack:4,release:38,detune:14,phaser:12,flanger:8,chorus:26,delay:18,reverb:26,drive:9,lfoRate:28,lfoDepth:18,gestureMod:45,layerMix:52,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72}},
-      {name:'Wurli Bark',wave:'square',wave2:'triangle',lesson:'Wurlitzer-style bite with a little growl. Add drive for bark and tremolo movement with the LFO.',values:{volume:72,tone:63,resonance:20,attack:2,release:30,detune:8,phaser:18,flanger:6,chorus:12,delay:10,reverb:18,drive:24,lfoRate:40,lfoDepth:24,gestureMod:50,layerMix:38,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72}},
-      {name:'MK Tines',wave:'sine',wave2:'sine',lesson:'Glossy MK-style tine patch. Brighter tone and more reverb create a polished modern electric piano.',values:{volume:67,tone:76,resonance:8,attack:6,release:54,detune:6,phaser:6,flanger:4,chorus:34,delay:22,reverb:38,drive:4,lfoRate:18,lfoDepth:10,gestureMod:36,layerMix:62,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72}},
-      {name:'FM Velvet EP',wave:'sine',wave2:'sawtooth',lesson:'Soft digital electric piano. The layer mix adds harmonic edge while reverb makes it float.',values:{volume:66,tone:68,resonance:12,attack:8,release:60,detune:5,phaser:4,flanger:6,chorus:18,delay:26,reverb:44,drive:2,lfoRate:16,lfoDepth:8,gestureMod:36,layerMix:72,camBlend:50,frontBlend:35,lightAir:76,bitDetail:72}},
-      {name:'Clav Spark',wave:'square',wave2:'sawtooth',lesson:'Clav-inspired rhythmic key patch. Short release, high tone, and drive make it cut through.',values:{volume:71,tone:80,resonance:28,attack:0,release:12,detune:3,phaser:28,flanger:12,chorus:5,delay:8,reverb:7,drive:22,lfoRate:48,lfoDepth:18,gestureMod:50,layerMix:35,camBlend:50,frontBlend:35,lightAir:52,bitDetail:72}}
+      {name:'Classic Rhodes',wave:'sine',wave2:'triangle',lesson:'Warm tine-style electric piano. Try increasing chorus for width, delay for space, and tone for bell sparkle.',values:{volume:70,tone:58,resonance:18,attack:4,release:38,detune:14,phaser:12,flanger:8,chorus:26,delay:18,reverb:26,drive:9,lfoRate:28,lfoDepth:18,gestureMod:45,layerMix:52,camBlend:50,frontBlend:35,lightAir:62,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Wurli Bark',wave:'square',wave2:'triangle',lesson:'Wurlitzer-style bite with a little growl. Add drive for bark and tremolo movement with the LFO.',values:{volume:72,tone:63,resonance:20,attack:2,release:30,detune:8,phaser:18,flanger:6,chorus:12,delay:10,reverb:18,drive:24,lfoRate:40,lfoDepth:24,gestureMod:50,layerMix:38,camBlend:50,frontBlend:35,lightAir:55,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'MK Tines',wave:'sine',wave2:'sine',lesson:'Glossy MK-style tine patch. Brighter tone and more reverb create a polished modern electric piano.',values:{volume:67,tone:76,resonance:8,attack:6,release:54,detune:6,phaser:6,flanger:4,chorus:34,delay:22,reverb:38,drive:4,lfoRate:18,lfoDepth:10,gestureMod:36,layerMix:62,camBlend:50,frontBlend:35,lightAir:70,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'FM Velvet EP',wave:'sine',wave2:'sawtooth',lesson:'Soft digital electric piano. The layer mix adds harmonic edge while reverb makes it float.',values:{volume:66,tone:68,resonance:12,attack:8,release:60,detune:5,phaser:4,flanger:6,chorus:18,delay:26,reverb:44,drive:2,lfoRate:16,lfoDepth:8,gestureMod:36,layerMix:72,camBlend:50,frontBlend:35,lightAir:76,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Clav Spark',wave:'square',wave2:'sawtooth',lesson:'Clav-inspired rhythmic key patch. Short release, high tone, and drive make it cut through.',values:{volume:71,tone:80,resonance:28,attack:0,release:12,detune:3,phaser:28,flanger:12,chorus:5,delay:8,reverb:7,drive:22,lfoRate:48,lfoDepth:18,gestureMod:50,layerMix:35,camBlend:50,frontBlend:35,lightAir:52,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
     ],
     bass:[
-      {name:'Moog Sub',wave:'sawtooth',wave2:'sine',lesson:'Round analog sub bass. Keep reverb low, use tone for growl, and add a little drive for weight.',values:{volume:74,tone:38,resonance:22,attack:0,release:18,detune:8,phaser:4,flanger:4,chorus:4,delay:3,reverb:2,drive:18,lfoRate:22,lfoDepth:10,gestureMod:45,layerMix:32,camBlend:50,frontBlend:35,lightAir:35,bitDetail:72}},
-      {name:'Juno Rubber',wave:'sawtooth',wave2:'square',lesson:'Rubbery synth bass with slight chorus. Add resonance for bounce and LFO for movement.',values:{volume:72,tone:45,resonance:38,attack:0,release:22,detune:12,phaser:8,flanger:6,chorus:14,delay:2,reverb:3,drive:14,lfoRate:36,lfoDepth:26,gestureMod:52,layerMix:45,camBlend:50,frontBlend:35,lightAir:38,bitDetail:72}},
-      {name:'808 Silk',wave:'sine',wave2:'sine',lesson:'Clean deep sine bass. Use release for length and drive for subtle harmonics.',values:{volume:76,tone:28,resonance:5,attack:0,release:42,detune:0,phaser:0,flanger:0,chorus:0,delay:0,reverb:0,drive:10,lfoRate:8,lfoDepth:0,gestureMod:30,layerMix:20,camBlend:50,frontBlend:35,lightAir:25,bitDetail:72}},
-      {name:'Acid Bassline',wave:'sawtooth',wave2:'square',lesson:'Classic resonant bassline energy. Resonance and LFO depth are the attitude controls.',values:{volume:72,tone:52,resonance:70,attack:0,release:12,detune:5,phaser:18,flanger:10,chorus:4,delay:8,reverb:2,drive:30,lfoRate:62,lfoDepth:42,gestureMod:64,layerMix:42,camBlend:50,frontBlend:35,lightAir:42,bitDetail:72}},
-      {name:'Future Reese',wave:'sawtooth',wave2:'sawtooth',lesson:'Wide detuned bass. Detune creates the beating movement; keep the tone controlled for power.',values:{volume:70,tone:42,resonance:20,attack:0,release:28,detune:44,phaser:10,flanger:24,chorus:28,delay:3,reverb:5,drive:22,lfoRate:24,lfoDepth:16,gestureMod:54,layerMix:50,camBlend:50,frontBlend:35,lightAir:36,bitDetail:72}}
+      {name:'Moog Sub',wave:'sawtooth',wave2:'sine',lesson:'Round analog sub bass. Keep reverb low, use tone for growl, and add a little drive for weight.',values:{volume:74,tone:38,resonance:22,attack:0,release:18,detune:8,phaser:4,flanger:4,chorus:4,delay:3,reverb:2,drive:18,lfoRate:22,lfoDepth:10,gestureMod:45,layerMix:32,camBlend:50,frontBlend:35,lightAir:35,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Juno Rubber',wave:'sawtooth',wave2:'square',lesson:'Rubbery synth bass with slight chorus. Add resonance for bounce and LFO for movement.',values:{volume:72,tone:45,resonance:38,attack:0,release:22,detune:12,phaser:8,flanger:6,chorus:14,delay:2,reverb:3,drive:14,lfoRate:36,lfoDepth:26,gestureMod:52,layerMix:45,camBlend:50,frontBlend:35,lightAir:38,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'808 Silk',wave:'sine',wave2:'sine',lesson:'Clean deep sine bass. Use release for length and drive for subtle harmonics.',values:{volume:76,tone:28,resonance:5,attack:0,release:42,detune:0,phaser:0,flanger:0,chorus:0,delay:0,reverb:0,drive:10,lfoRate:8,lfoDepth:0,gestureMod:30,layerMix:20,camBlend:50,frontBlend:35,lightAir:25,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Acid Bassline',wave:'sawtooth',wave2:'square',lesson:'Classic resonant bassline energy. Resonance and LFO depth are the attitude controls.',values:{volume:72,tone:52,resonance:70,attack:0,release:12,detune:5,phaser:18,flanger:10,chorus:4,delay:8,reverb:2,drive:30,lfoRate:62,lfoDepth:42,gestureMod:64,layerMix:42,camBlend:50,frontBlend:35,lightAir:42,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}},
+      {name:'Future Reese',wave:'sawtooth',wave2:'sawtooth',lesson:'Wide detuned bass. Detune creates the beating movement; keep the tone controlled for power.',values:{volume:70,tone:42,resonance:20,attack:0,release:28,detune:44,phaser:10,flanger:24,chorus:28,delay:3,reverb:5,drive:22,lfoRate:24,lfoDepth:16,gestureMod:54,layerMix:50,camBlend:50,frontBlend:35,lightAir:36,bitDetail:72,hueShift:50,colorRange:45,visualSense:55}}
     ]
   };
 
-  const controlIds = ['volume','tone','resonance','attack','release','detune','glide','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail'];
+  const controlIds = ['volume','tone','resonance','attack','release','detune','glide','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail','hueShift','colorRange','visualSense'];
 
   const physicalLayout = [
     {code:'KeyZ',key:'Z',offset:0,black:false,row:'lower'},{code:'KeyS',key:'S',offset:1,black:true,row:'lower'},{code:'KeyX',key:'X',offset:2,black:false,row:'lower'},{code:'KeyD',key:'D',offset:3,black:true,row:'lower'},{code:'KeyC',key:'C',offset:4,black:false,row:'lower'},{code:'KeyV',key:'V',offset:5,black:false,row:'lower'},{code:'KeyG',key:'G',offset:6,black:true,row:'lower'},{code:'KeyB',key:'B',offset:7,black:false,row:'lower'},{code:'KeyH',key:'H',offset:8,black:true,row:'lower'},{code:'KeyN',key:'N',offset:9,black:false,row:'lower'},{code:'KeyJ',key:'J',offset:10,black:true,row:'lower'},{code:'KeyM',key:'M',offset:11,black:false,row:'lower'},
@@ -628,32 +639,32 @@
   function applyControls(){
     if(!state.nodes || !state.audio) return;
     const n=state.nodes, t=state.audio.currentTime;
-    const cameraActive = state.cameraOn && state.cameraSound;
+    const visualActive = state.cameraSound;
     const tone=pct('tone');
-    const light = cameraActive ? state.smooth.brightness : 0;
-    const motion = cameraActive ? state.smooth.motion : 0;
-    const gestureDepth = cameraActive ? pct('gestureMod') : 0;
-    const eyes = cameraActive ? state.smooth.eyes : 0;
-    const head = cameraActive ? state.smooth.head : 0;
-    const mouth = cameraActive ? state.smooth.mouth : 0;
-    const hands = cameraActive ? state.smooth.hands : 0;
-    const air = clamp((light*1.35 + motion*.42)*pct('lightAir'),0,1);
-    const motionPush = clamp((motion*.85 + hands*.65 + head*.45 + eyes*.28 + mouth*.35)*gestureDepth,0,1);
-    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*5200 + eyes*gestureDepth*2200 + hands*gestureDepth*900;
+    const light = visualActive ? state.smooth.brightness : 0;
+    const motion = visualActive ? state.smooth.motion : 0;
+    const gestureDepth = visualActive ? pct('visualSense') * (.32 + pct('gestureMod')*.78) : 0;
+    const eyes = visualActive ? state.smooth.eyes : 0;
+    const head = visualActive ? state.smooth.head : 0;
+    const mouth = visualActive ? state.smooth.mouth : 0;
+    const hands = visualActive ? state.smooth.hands : 0;
+    const air = clamp((light*1.15 + motion*.62 + eyes*.20)*pct('lightAir'),0,1);
+    const motionPush = clamp((motion*1.25 + hands*.70 + head*.48 + eyes*.42 + mouth*.35)*gestureDepth,0,1);
+    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*5600 + eyes*gestureDepth*1900 + hands*gestureDepth*650;
     n.master.gain.setTargetAtTime(pct('volume')*.78,t,.028);
     n.filter.frequency.setTargetAtTime(clamp(cutoff,80,13200),t,.07);
     n.filter.Q.setTargetAtTime(.25 + pct('resonance')*14 + mouth*gestureDepth*5.5,t,.08);
     n.phaser.frequency.setTargetAtTime(260+pct('phaser')*2300+head*gestureDepth*900,t,.09);
     n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + hands*gestureDepth*.16,0,.72),t,.08);
     n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + air*.20,0,.86),t,.09);
-    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + hands*gestureDepth*.24,0,.82),t,.10);
-    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.08,0,.68),t,.12);
-    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.30,0,.90),t,.11);
+    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + (hands*.18 + motion*.10)*gestureDepth,0,.82),t,.18);
+    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.13,0,.66),t,.20);
+    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.36,0,.88),t,.22);
     n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.10,0,.82),t,.13);
     n.drive.curve=makeDriveCurve(pct('drive'));
     n.drive.oversample='2x';
-    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*2.6,t,.10);
-    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*850,t,.12);
+    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*1.8,t,.18);
+    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*620,t,.20);
     n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + hands*gestureDepth*.0017,t,.11);
     n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + light*.0012,t,.11);
   }
@@ -865,7 +876,7 @@
     if(state.audio && state.audio.state!=='closed'){
       try{ await state.audio.close(); }catch(e){}
     }
-    state.audio=null; state.nodes=null; state.voices.clear(); state.monoVoice=null; state.lastFrame=null; state.lastFace=null;
+    state.audio=null; state.nodes=null; state.voices.clear(); state.monoVoice=null; state.lastFrame=null; state.lastVisualFrame=null;
     state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0};
     resetPatch();
     if(state.activeScreen==='app') await initAudio();
@@ -1069,6 +1080,7 @@
     controlIds.forEach(id=>{
       const el=$(id), val=$(id+'Val'); if(!el || !val) return;
       if(id==='frontBlend') val.textContent=Number(el.value)<40?'Audio':Number(el.value)>60?'Camera':'Equal';
+      else if(id==='colorRange') val.textContent=colorCount() + (colorCount()===1?' tone':' tones');
       else val.textContent=el.value+'%';
     });
   }
@@ -1086,14 +1098,14 @@
       $('camVideo').srcObject=stream; await $('camVideo').play();
       $('cameraBtn').classList.add('on');
       await listCameras();
-      showToast('Camera mode active. Microbits, feature overlays, and light/motion analysis are online.');
+      showToast('Camera mode active. Microbits and visual fluctuation analysis are online.');
     }catch(err){
       console.error(err); showToast('Camera could not start. Check browser permission and HTTPS.');
     }
   }
   function stopCamera(){
     if(state.cameraStream){ state.cameraStream.getTracks().forEach(t=>t.stop()); }
-    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0}; $('cameraBtn').classList.remove('on');
+    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; state.lastVisualFrame=null; state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0}; $('cameraBtn').classList.remove('on');
     showToast('Camera mode off.');
   }
   async function listCameras(){
@@ -1118,11 +1130,12 @@
   function setupVisual(){
     const canvas=$('visualCanvas'), ctx=canvas.getContext('2d',{willReadFrequently:true});
     const sample=document.createElement('canvas'), sctx=sample.getContext('2d',{willReadFrequently:true});
+    const visualSample=document.createElement('canvas'), vctx=visualSample.getContext('2d',{willReadFrequently:true});
     const trails=[];
     function resize(){
       const rect=canvas.getBoundingClientRect(); const size=Math.max(260,Math.min(rect.width||360,rect.height||360)); const dpr=Math.min(devicePixelRatio||1,2);
       canvas.width=Math.floor(size*dpr); canvas.height=Math.floor(size*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
-      sample.width=96; sample.height=96;
+      sample.width=96; sample.height=96; visualSample.width=56; visualSample.height=56;
     }
     new ResizeObserver(resize).observe(canvas); resize();
     function draw(){
@@ -1130,6 +1143,7 @@
       ctx.fillStyle='rgba(0,0,0,.24)'; ctx.fillRect(0,0,w,h);
       analyzeAudioAndCamera(w,h,t,ctx,sample,sctx);
       drawAudioStrands(ctx,w,h,t,trails);
+      analyzeVisualFeedback(canvas,w,h,t,visualSample,vctx);
       applyControls();
       requestAnimationFrame(draw);
     }
@@ -1142,7 +1156,7 @@
     const camBlend=pct('camBlend'), foreground=pct('frontBlend'), detail=pct('bitDetail');
     const gestures={head:0,eyes:0,mouth:0,hands:0};
     if(state.cameraOn && video.readyState>=2){
-      const targetSize = Math.round(110 + detail*70);
+      const targetSize = Math.round(150 + detail*130);
       if(sample.width!==targetSize){ sample.width=targetSize; sample.height=targetSize; state.lastFrame=null; }
       sctx.save();
       sctx.translate(sample.width,0); sctx.scale(-1,1);
@@ -1150,7 +1164,7 @@
       sctx.restore();
       const img=sctx.getImageData(0,0,sample.width,sample.height);
       const data=img.data;
-      const step=Math.max(1,Math.round(4-detail*3));
+      const step=Math.max(1,Math.round(3-detail*2.6));
       const prev=state.lastFrame;
       let total=0, count=0, diffTotal=0;
       let minX=sample.width, minY=sample.height, maxX=0, maxY=0, hit=0;
@@ -1176,13 +1190,13 @@
             minX=Math.min(minX,x); minY=Math.min(minY,y); maxX=Math.max(maxX,x); maxY=Math.max(maxY,y); hit++;
             const px=(x/sample.width)*w, py=(y/sample.height)*h;
             const alpha=clamp((lum*.78 + d*4.8)*camBlend,0,.88);
-            const tone=tealTones[(x+y+Math.floor(t*7))%tealTones.length];
+            const tone=themedColor(x+y+Math.floor(t*7),1,lum*18,62+lum*18);
             ctx.globalAlpha=alpha*(.58+foreground*.72);
             ctx.fillStyle=tone;
-            const sz=clamp(.42+lum*.62+d*2.2,.38,1.35);
+            const sz=clamp(.16+lum*.25+d*.88,.14,.54);
             ctx.fillRect(px,py,sz,sz);
             if(d>.052){
-              ctx.strokeStyle=(Math.random()>.45?'#ff38e8':'#d7ff55'); ctx.lineWidth=.34; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+(Math.random()-.5)*10,py+(Math.random()-.5)*10); ctx.stroke();
+              ctx.strokeStyle=themedColor(x+y, .82, 36, 68); ctx.lineWidth=.34; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+(Math.random()-.5)*10,py+(Math.random()-.5)*10); ctx.stroke();
             }
           }
         }
@@ -1197,9 +1211,7 @@
       gestures.head=clamp((zones.mid/Math.max(1,zones.mc))*13,0,1);
       gestures.mouth=clamp((zones.low/Math.max(1,zones.lc))*16,0,1);
       gestures.hands=clamp((zones.edge/Math.max(1,zones.ec))*18,0,1);
-      if(hit>18){ drawTrackingOverlay(ctx,w,h,minX,minY,maxX,maxY,sample.width,sample.height,gestures,t); }
       ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
-      if(state.faceTrack) maybeFaceDetect(video,w,h,ctx,gestures).catch(()=>{});
     }
     const smoothAmt=.16;
     state.smooth.brightness += (brightness-state.smooth.brightness)*smoothAmt;
@@ -1209,53 +1221,57 @@
     updateGestureMeters(); updateMeters();
   }
 
-  function drawTrackingOverlay(ctx,w,h,minX,minY,maxX,maxY,sw,sh,gestures,t){
-    const x=minX/sw*w, y=minY/sh*h, bw=Math.max(18,(maxX-minX)/sw*w), bh=Math.max(18,(maxY-minY)/sh*h);
-    const cx=x+bw/2;
-    ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=state.faceTrack ? .78 : .38; ctx.lineWidth=1;
-    const pulse=.55+Math.sin(t*5)*.20;
-    ctx.strokeStyle=`rgba(131,255,243,${pulse})`;
-    ctx.strokeRect(x,y,bw,bh);
-    ctx.strokeStyle='rgba(255,56,232,.68)';
-    ctx.strokeRect(cx-bw*.23,y+bh*.18,bw*.16,bh*.09); ctx.strokeRect(cx+bw*.07,y+bh*.18,bw*.16,bh*.09);
-    ctx.strokeStyle='rgba(215,255,85,.70)';
-    ctx.strokeRect(cx-bw*.17,y+bh*.43,bw*.34,bh*.12);
-    ctx.beginPath();
-    ctx.ellipse(cx,y+bh*.32,bw*.34,bh*.26,0,0,Math.PI*2);
-    ctx.strokeStyle='rgba(48,235,220,.72)'; ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(cx,y+bh*.61); ctx.lineTo(cx,y+bh*.92);
-    ctx.moveTo(cx,y+bh*.70); ctx.lineTo(x+bw*.12,y+bh*.82);
-    ctx.moveTo(cx,y+bh*.70); ctx.lineTo(x+bw*.88,y+bh*.82);
-    ctx.strokeStyle='rgba(131,255,243,.36)'; ctx.stroke();
-    if(gestures.hands>.05){
-      ctx.strokeStyle='rgba(255,56,232,.55)'; ctx.strokeRect(4,h*.22,w*.18,h*.56); ctx.strokeRect(w*.78,h*.22,w*.18,h*.56);
-    }
-    ctx.restore();
-  }
-
-  async function maybeFaceDetect(video,w,h,ctx,gestures){
-    if(!('FaceDetector' in window)) return;
-    if(!state.faceDetector){
-      try{ state.faceDetector = new window.FaceDetector({fastMode:true,maxDetectedFaces:1}); }catch(e){ return; }
-    }
-    if(maybeFaceDetect.busy || performance.now()-(maybeFaceDetect.last||0)<420) return;
-    maybeFaceDetect.busy=true; maybeFaceDetect.last=performance.now();
-    try{
-      const faces=await state.faceDetector.detect(video);
-      if(faces && faces[0]){
-        const box=faces[0].boundingBox;
-        const cx=box.x+box.width/2, cy=box.y+box.height/2;
-        if(state.lastFace){ gestures.head=clamp((Math.abs(cx-state.lastFace.x)+Math.abs(cy-state.lastFace.y))/65,0,1); }
-        state.lastFace={x:cx,y:cy};
-        ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=.82; ctx.strokeStyle='#83fff3'; ctx.lineWidth=1.25;
-        ctx.strokeRect(w*.18,h*.14,w*.64,h*.66);
-        ctx.strokeStyle='#ff38e8'; ctx.strokeRect(w*.32,h*.32,w*.13,h*.07); ctx.strokeRect(w*.55,h*.32,w*.13,h*.07);
-        ctx.strokeStyle='#d7ff55'; ctx.strokeRect(w*.40,h*.56,w*.20,h*.08);
-        ctx.restore();
+  function analyzeVisualFeedback(canvas,w,h,t,visualSample,vctx){
+    const size=56;
+    if(visualSample.width!==size){ visualSample.width=size; visualSample.height=size; state.lastVisualFrame=null; }
+    try{ vctx.drawImage(canvas,0,0,size,size); }catch(e){ return; }
+    let img;
+    try{ img=vctx.getImageData(0,0,size,size).data; }catch(e){ return; }
+    const prev=state.lastVisualFrame;
+    let total=0, count=0, diffTotal=0, colorTotal=0;
+    const zones={top:0,mid:0,low:0,edge:0,tc:0,mc:0,lc:0,ec:0};
+    const next=new Float32Array(size*size);
+    for(let y=0;y<size;y++){
+      for(let x=0;x<size;x++){
+        const p=y*size+x, i=p*4;
+        const r=img[i]/255, g=img[i+1]/255, b=img[i+2]/255;
+        const lum=(r+g+b)/3;
+        const chroma=Math.max(r,g,b)-Math.min(r,g,b);
+        next[p]=lum;
+        total+=lum; colorTotal+=chroma; count++;
+        let d=0;
+        if(prev) d=Math.abs(lum-(prev[p]||0));
+        diffTotal+=d;
+        const yn=y/size, xn=x/size;
+        if(yn<.34){ zones.top+=d+chroma*.015; zones.tc++; }
+        else if(yn<.68){ zones.mid+=d+chroma*.015; zones.mc++; }
+        else { zones.low+=d+chroma*.015; zones.lc++; }
+        if(xn<.23 || xn>.77){ zones.edge+=d+chroma*.018; zones.ec++; }
       }
-    }catch(e){}
-    maybeFaceDetect.busy=false;
+    }
+    state.lastVisualFrame=next;
+    const brightness=clamp(total/Math.max(1,count)*2.6,0,1);
+    const motion=clamp(diffTotal/Math.max(1,count)*20 + colorTotal/Math.max(1,count)*.22,0,1);
+    const sensed={
+      head:clamp((zones.mid/Math.max(1,zones.mc))*34,0,1),
+      eyes:clamp((zones.top/Math.max(1,zones.tc))*36,0,1),
+      mouth:clamp((zones.low/Math.max(1,zones.lc))*34,0,1),
+      hands:clamp((zones.edge/Math.max(1,zones.ec))*42,0,1)
+    };
+    const sensitivity=.22 + pct('visualSense')*1.55;
+    const targetBrightness=clamp((state.cameraOn ? Math.max(state.brightness,brightness) : brightness)*sensitivity,0,1);
+    const targetMotion=clamp(Math.max(state.motion,motion)*sensitivity,0,1);
+    state.smooth.brightness += (targetBrightness-state.smooth.brightness)*.12;
+    state.smooth.motion += (targetMotion-state.smooth.motion)*.14;
+    ['head','eyes','mouth','hands'].forEach(k=>{
+      const target=clamp(Math.max(state.gestures[k]||0,sensed[k]||0)*sensitivity,0,1);
+      state.smooth[k] += (target-state.smooth[k])*.13;
+    });
+    state.gestures={head:state.smooth.head,eyes:state.smooth.eyes,mouth:state.smooth.mouth,hands:state.smooth.hands};
+    state.brightness=targetBrightness;
+    state.motion=targetMotion;
+    updateGestureMeters();
+    updateMeters();
   }
 
   function drawAudioStrands(ctx,w,h,t,trails){
@@ -1268,8 +1284,7 @@
     const strandCount=9+active*4;
     ctx.globalCompositeOperation='lighter';
     for(let s=0;s<strandCount;s++){
-      const hue=(s*28 + t*38 + state.brightness*140)%360;
-      ctx.strokeStyle=`hsla(${hue},100%,68%,${.14+energy*.45})`;
+      ctx.strokeStyle=themedColor(s, .14+energy*.45, t*16 + state.brightness*54, 66);
       ctx.lineWidth=.55+energy*1.3;
       ctx.beginPath();
       for(let x=0;x<=w;x+=8){
@@ -1280,9 +1295,9 @@
     }
     for(let i=0;i<Math.round(90+energy*260);i++){
       ctx.globalAlpha=.12+Math.random()*.35;
-      ctx.fillStyle=tealTones[(i+Math.floor(t*7))%tealTones.length];
+      ctx.fillStyle=themedColor(i+Math.floor(t*7), .72, energy*30, 64);
       const x=Math.random()*w, y=(h*.5)+(Math.random()-.5)*h*(.22+energy*.65);
-      ctx.fillRect(x,y,.45+Math.random()*.55,.45+Math.random()*.55);
+      ctx.fillRect(x,y,.18+Math.random()*.24,.18+Math.random()*.24);
     }
     ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
   }
@@ -1343,8 +1358,8 @@
   function setCameraSound(on){
     state.cameraSound=!!on;
     const btn=$('cameraSoundBtn');
-    if(btn){ btn.classList.toggle('on',state.cameraSound); btn.textContent=state.cameraSound?'Camera Sound On':'Camera Sound Off'; }
-    showToast(state.cameraSound?'Camera motion will shape the sound.':'Camera visuals only. Sound manipulation off.');
+    if(btn){ btn.classList.toggle('on',state.cameraSound); btn.textContent=state.cameraSound?'Visual Sound On':'Visual Sound Off'; }
+    showToast(state.cameraSound?'Visual feedback will gently shape the sound.':'Visuals only. Sound manipulation off.');
   }
 
   function bind(){
@@ -1357,7 +1372,6 @@
     $('visualMiniBtn').addEventListener('click',openVisual);
     $('guideBtn').addEventListener('click',()=>{ state.guide=!state.guide; document.body.classList.toggle('guide-on',state.guide); $('guideBtn').classList.toggle('on',state.guide); $('tipPop').classList.add('hidden'); showToast(state.guide?'Guide mode on. Tap highlighted controls for info.':'Guide mode off.'); });
     $('cameraBtn').addEventListener('click',()=> state.cameraOn ? stopCamera() : startCamera());
-    $('faceBtn').addEventListener('click',()=>{ state.faceTrack=!state.faceTrack; $('faceBtn').classList.toggle('on',state.faceTrack); showToast(state.faceTrack?'Feature tracking overlay on.':'Feature tracking overlay off.'); });
     $('cameraSoundBtn').addEventListener('click',()=>setCameraSound(!state.cameraSound));
     $('switchCameraBtn').addEventListener('click',switchCamera);
     $('cameraSelect').addEventListener('change',()=>{ if(state.cameraOn) startCamera(); });
@@ -1388,6 +1402,7 @@
     });
     window.addEventListener('touchend',()=>{ if(!state.stackMode && !state.sustain && state.heldPointers.size){ const notes=[...state.heldPointers.values()]; state.heldPointers.clear(); notes.forEach(n=>releaseNote(n)); } },{passive:true});
     window.addEventListener('touchcancel',()=>{ if(!state.stackMode){ const notes=[...state.heldPointers.values()]; state.heldPointers.clear(); notes.forEach(n=>releaseNote(n,.02,true)); } },{passive:true});
+    document.addEventListener('selectstart',(e)=>{ if(!e.target.matches('input,select,textarea')) e.preventDefault(); },{passive:false});
     window.addEventListener('keydown',handlePhysicalKeyDown,{passive:false});
     window.addEventListener('keyup',handlePhysicalKeyUp,{passive:false});
     window.addEventListener('blur',()=>releaseAll(true));
