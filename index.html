@@ -48,8 +48,8 @@
   .home-card{position:relative;width:min(850px,94vw);min-height:min(560px,88vh);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:clamp(24px,5vw,64px);border:1px solid rgba(131,255,243,.34);border-radius:32px;background:radial-gradient(circle at 50% 35%,rgba(131,255,243,.12),rgba(3,23,26,.72) 45%,rgba(0,0,0,.94));box-shadow:var(--shadow),inset 0 0 100px rgba(10,174,168,.10);overflow:hidden;}
   .home-card:before{content:"";position:absolute;inset:0;opacity:.45;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,rgba(48,235,220,.035) 0 1px,transparent 1px 9px);mix-blend-mode:screen;}
   .home-kicker{position:relative;margin:0 0 18px;color:var(--teal1);letter-spacing:.26em;text-transform:uppercase;font-size:.72rem;text-shadow:0 0 14px rgba(131,255,243,.9);}
-  .home-title{position:relative;margin:0;line-height:.85;font-family:"UnifrakturCook","Old English Text MT",Georgia,"Times New Roman",serif;font-size:clamp(3.25rem,12vw,8.8rem);font-weight:900;letter-spacing:-.04em;color:#f2fffd;text-shadow:3px 0 0 var(--pink),-3px 0 0 var(--teal2),0 5px 0 #001416,0 0 28px rgba(131,255,243,.85);filter:drop-shadow(0 0 14px rgba(48,235,220,.58));transform:skew(-2.5deg);}
-  .home-title span{display:block;font-size:.28em;letter-spacing:.18em;color:var(--teal1);text-transform:uppercase;text-shadow:2px 0 0 var(--pink),0 0 18px rgba(131,255,243,.88);}
+  .home-title{position:relative;margin:0;line-height:.92;font-family:"Courier New",ui-monospace,monospace;font-size:clamp(2.8rem,10vw,7rem);font-weight:900;letter-spacing:.08em;color:#edfffd;text-transform:uppercase;text-shadow:2px 0 0 var(--pink),-2px 0 0 var(--teal2),0 0 22px rgba(131,255,243,.55),0 0 2px rgba(131,255,243,.95);filter:drop-shadow(0 0 14px rgba(48,235,220,.42));}
+  .home-title span{display:block;font-size:.24em;letter-spacing:.34em;color:var(--teal1);text-transform:uppercase;text-shadow:2px 0 0 var(--pink),0 0 16px rgba(131,255,243,.72);margin-bottom:.18em;}
   .home-tagline{position:relative;width:min(680px,90%);margin:24px auto 0;color:#d8fffb;font-size:clamp(.9rem,2.2vw,1.1rem);line-height:1.55;text-shadow:0 0 14px rgba(48,235,220,.55);}
   .home-tagline strong{color:var(--lime);text-transform:uppercase;letter-spacing:.08em;}
   .home-actions{position:relative;margin-top:30px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -96,6 +96,8 @@
   .chip{border:1px solid rgba(131,255,243,.22);background:rgba(5,18,20,.86);color:var(--text);border-radius:999px;padding:8px 10px;min-height:34px;font-size:.73rem;cursor:pointer;}
   .visual-mini{position:fixed;right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));z-index:70;width:46px;height:46px;border-radius:16px;border:1px solid rgba(131,255,243,.5);background:rgba(0,18,20,.62);backdrop-filter:blur(10px);display:grid;place-items:center;color:var(--teal1);box-shadow:0 0 22px rgba(131,255,243,.22),0 0 40px rgba(255,56,232,.09);}
   .visual-mini svg{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(131,255,243,.72));}
+  .piano-mini{position:fixed;right:calc(12px + env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));z-index:72;min-width:54px;min-height:46px;border-radius:16px;border:1px solid rgba(131,255,243,.48);background:rgba(0,18,20,.78);backdrop-filter:blur(10px);display:grid;place-items:center;color:var(--teal1);box-shadow:0 0 18px rgba(131,255,243,.18),0 0 36px rgba(255,56,232,.08);}
+  .keyboard-dock.kbd-hidden{transform:translateY(calc(100% + 10px));opacity:0;pointer-events:none;}
 
   .workspace{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:12px;width:min(1180px,calc(100% - 20px));margin:8px auto 0;}
   .panel{border:1px solid rgba(131,255,243,.20);border-radius:22px;background:var(--panel);box-shadow:inset 0 0 30px rgba(131,255,243,.035);overflow:hidden;min-width:0;}
@@ -118,7 +120,7 @@
   .export-row{display:flex;gap:8px;flex-wrap:wrap;}
 
   /* KEYBOARD DOCK */
-  .keyboard-dock{position:fixed;left:0;right:0;bottom:0;z-index:60;background:linear-gradient(180deg,rgba(0,10,11,.78),rgba(0,0,0,.99));border-top:1px solid rgba(131,255,243,.24);box-shadow:0 -12px 38px rgba(0,0,0,.62),0 -4px 24px rgba(48,235,220,.09);padding:8px calc(8px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));}
+  .keyboard-dock{position:fixed;left:0;right:0;bottom:0;z-index:60;background:linear-gradient(180deg,rgba(0,10,11,.78),rgba(0,0,0,.99));border-top:1px solid rgba(131,255,243,.24);box-shadow:0 -12px 38px rgba(0,0,0,.62),0 -4px 24px rgba(48,235,220,.09);padding:8px calc(8px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));transition:transform .22s ease,opacity .18s ease;}
   .kbd-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;}
   .kbd-tools-left,.kbd-tools-right{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
   .kbd-title{font-size:.72rem;color:var(--teal1);text-transform:uppercase;letter-spacing:.14em;font-weight:900;white-space:nowrap;}
@@ -201,6 +203,7 @@
   }
 
   html, body, main, section, article, header, div, p, h1, h2, h3, h4, span, button, canvas, svg, label, kbd{
+    -webkit-user-select:none; user-select:none;
     -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
   }
   input, select{ -webkit-user-select:auto; user-select:auto; }
@@ -373,7 +376,7 @@
     </article>
   </section>
 
-  <section class="keyboard-dock" data-tip="The playable piano stays fixed to the bottom foreground. Row 2 can collapse to save vertical room.">
+  <section id="keyboardDock" class="keyboard-dock" data-tip="The playable piano stays fixed to the bottom foreground. Row 2 can collapse to save vertical room.">
     <div class="kbd-tools">
       <div class="kbd-tools-left">
         <div class="kbd-title">Two-Octave Piano</div>
@@ -391,6 +394,7 @@
       <div class="kbd-tools-right">
         <button id="octDown" class="btn small" type="button" data-tip="Shifts the keyboard down one octave.">Oct -</button>
         <button id="octUp" class="btn small" type="button" data-tip="Shifts the keyboard up one octave.">Oct +</button>
+        <button id="hidePianoBtn" class="btn small" type="button" data-tip="Hides the fixed piano so you can scroll the rest of the interface more freely. Reopen it from the floating piano button.">Hide Piano</button>
       </div>
     </div>
     <div class="keyboard-stack">
@@ -398,6 +402,7 @@
       <div id="row2" class="octave" data-octave="4"></div>
     </div>
   </section>
+  <button id="pianoMiniBtn" class="piano-mini hidden" type="button" aria-label="Show piano" data-tip="Reopens the fixed piano dock.">🎹</button>
 </main>
 
 <div id="tipPop" class="tip-pop hidden"></div>
@@ -453,6 +458,7 @@
     keyboardHeld:new Map(),
     keyMapOpen:false,
     row2Open:true,
+    keyboardVisible:true,
     baseOctave:3,
     bank:'keys',
     patchIndex:0,
@@ -515,46 +521,70 @@
   function showScreen(id){
     ['home','instructions','app'].forEach(s=>$(s).classList.toggle('hidden',s!==id));
     state.activeScreen=id;
+    if(id==='app') setTimeout(updateKeyboardDockMetrics,30);
   }
 
   function setupHomeBits(){
     const canvas=$('homeBits'), ctx=canvas.getContext('2d');
-    const particles=[];
+    const waveBits=[];
+    const falling=[];
+    const bursts=[];
+    let titleRect=null;
+    function refreshTitleRect(){
+      const el=document.querySelector('.home-title');
+      titleRect=el ? el.getBoundingClientRect() : null;
+    }
     function resize(){
       const dpr=Math.min(devicePixelRatio||1,2);
       canvas.width=Math.floor(innerWidth*dpr); canvas.height=Math.floor(innerHeight*dpr);
       canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px';
       ctx.setTransform(dpr,0,0,dpr,0,0);
-      particles.length=0;
-      const count=Math.min(900,Math.floor(innerWidth*innerHeight/850));
-      for(let i=0;i<count;i++) particles.push({
+      waveBits.length=0;
+      const count=Math.min(1200,Math.floor(innerWidth*innerHeight/700));
+      for(let i=0;i<count;i++) waveBits.push({
         x:Math.random()*innerWidth,
         y:Math.random()*innerHeight,
-        s:Math.random()*1.6+.35,
+        s:Math.random()*.95+.18,
         phase:Math.random()*Math.PI*2,
-        speed:.25+Math.random()*1.25,
+        speed:.22+Math.random()*1.1,
         tone:Math.floor(Math.random()*tealTones.length),
-        amp:14+Math.random()*70
+        amp:12+Math.random()*66
       });
+      refreshTitleRect();
     }
-    addEventListener('resize',resize,{passive:true}); resize();
+    function spawnFaller(){
+      if(!titleRect) return;
+      const count=1 + (Math.random()<.45 ? 1 : 0);
+      for(let i=0;i<count;i++){
+        const x=titleRect.left + titleRect.width*(.05 + Math.random()*.9);
+        const y=titleRect.top + titleRect.height*(.56 + Math.random()*.38);
+        falling.push({x,y,vx:(Math.random()-.5)*.35,vy:1.2+Math.random()*1.5,s:.7+Math.random()*1.2,tone:Math.floor(Math.random()*tealTones.length),life:1});
+      }
+    }
+    function burst(x,y,tone){
+      for(let i=0;i<10;i++) bursts.push({x,y,vx:(Math.random()-.5)*2.2,vy:-.4-Math.random()*1.8,grav:.035+Math.random()*.04,s:.65+Math.random()*1.1,tone:(tone+i)%tealTones.length,life:.9+Math.random()*.6});
+    }
+    addEventListener('resize',resize,{passive:true});
+    addEventListener('orientationchange',()=>setTimeout(resize,220),{passive:true});
+    resize();
     function draw(){
       const t=performance.now()/1000;
+      if((Math.floor(t*12)%6)===0) refreshTitleRect();
       ctx.clearRect(0,0,innerWidth,innerHeight);
-      ctx.fillStyle='rgba(0,0,0,.25)'; ctx.fillRect(0,0,innerWidth,innerHeight);
+      ctx.fillStyle='rgba(0,0,0,.22)'; ctx.fillRect(0,0,innerWidth,innerHeight);
       const cy=innerHeight*.52;
-      for(const p of particles){
+      for(const p of waveBits){
         p.x += p.speed;
         if(p.x>innerWidth+12){p.x=-12; p.y=Math.random()*innerHeight; p.phase=Math.random()*6.28;}
         const wave1=Math.sin((p.x*.012)+t*1.8+p.phase)*p.amp;
         const wave2=Math.sin((p.x*.027)-t*1.2+p.phase*1.7)*(p.amp*.28);
         const targetY=cy+wave1+wave2;
         p.y += (targetY-p.y)*.018;
-        ctx.globalAlpha=.24+Math.sin(t*2+p.phase)*.12;
+        ctx.globalAlpha=.22+Math.sin(t*2+p.phase)*.1;
         ctx.fillStyle=tealTones[p.tone];
         ctx.fillRect(p.x,p.y,p.s,p.s);
       }
-      ctx.globalAlpha=.22;
+      ctx.globalAlpha=.18;
       for(let k=0;k<4;k++){
         ctx.strokeStyle=tealTones[k]; ctx.lineWidth=1;
         ctx.beginPath();
@@ -563,6 +593,24 @@
           if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
         }
         ctx.stroke();
+      }
+      if(Math.random()<.85) spawnFaller();
+      ctx.globalAlpha=1;
+      for(let i=falling.length-1;i>=0;i--){
+        const p=falling[i];
+        p.x+=p.vx; p.y+=p.vy; p.vy+=.028; p.life-=.0045;
+        ctx.globalAlpha=Math.max(.15,p.life);
+        ctx.fillStyle=tealTones[p.tone];
+        ctx.fillRect(p.x,p.y,p.s,p.s);
+        if(p.y>innerHeight-18 || p.life<=0){ burst(p.x,innerHeight-12,p.tone); falling.splice(i,1); }
+      }
+      for(let i=bursts.length-1;i>=0;i--){
+        const p=bursts[i];
+        p.x+=p.vx; p.y+=p.vy; p.vy+=p.grav; p.life-=.02;
+        ctx.globalAlpha=Math.max(0,p.life);
+        ctx.fillStyle=tealTones[p.tone];
+        ctx.fillRect(p.x,p.y,p.s,p.s);
+        if(p.life<=0) bursts.splice(i,1);
       }
       ctx.globalAlpha=1;
       requestAnimationFrame(draw);
@@ -1319,12 +1367,29 @@
     state.visualOpen=true; $('visualZone').classList.remove('hidden'); $('visualMiniBtn').classList.add('hidden');
   }
 
+  function updateKeyboardDockMetrics(){
+    const dock=$('keyboardDock');
+    if(!dock) return;
+    const visible=state.keyboardVisible !== false;
+    const h=visible ? Math.ceil(dock.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--kbdH', h+'px');
+    $('app').style.paddingBottom=`calc(${h}px + env(safe-area-inset-bottom) + 18px)`;
+  }
+
+  function setKeyboardVisible(on){
+    state.keyboardVisible=!!on;
+    $('keyboardDock').classList.toggle('kbd-hidden', !state.keyboardVisible);
+    $('pianoMiniBtn').classList.toggle('hidden', state.keyboardVisible);
+    if(!state.keyboardVisible) toggleKeyboardGuide(false);
+    updateKeyboardDockMetrics();
+    showToast(state.keyboardVisible ? 'Piano shown.' : 'Piano hidden.');
+  }
+
   function setupGuide(){
     document.addEventListener('click',(e)=>{
       if(!state.guide) return;
       const target=e.target.closest('[data-tip]');
       if(!target) return;
-      e.preventDefault(); e.stopPropagation();
       const tip=$('tipPop'); tip.textContent=target.dataset.tip;
       const rect=target.getBoundingClientRect();
       tip.style.left=clamp(rect.left,10,innerWidth-350)+'px';
@@ -1380,7 +1445,9 @@
     $('sustainBtn').addEventListener('click',()=>setSustain(!state.sustain));
     $('keyMapBtn').addEventListener('click',()=>toggleKeyboardGuide());
     $('closeKeyMapBtn').addEventListener('click',()=>toggleKeyboardGuide(false));
-    $('toggleRow2').addEventListener('click',()=>{ state.row2Open=!state.row2Open; $('row2').classList.toggle('hidden-row',!state.row2Open); $('toggleRow2').textContent=state.row2Open?'Hide Row 2':'Open Row 2'; document.documentElement.style.setProperty('--kbdH',state.row2Open?'174px':'104px'); });
+    $('toggleRow2').addEventListener('click',()=>{ state.row2Open=!state.row2Open; $('row2').classList.toggle('hidden-row',!state.row2Open); $('toggleRow2').textContent=state.row2Open?'Hide Row 2':'Open Row 2'; requestAnimationFrame(updateKeyboardDockMetrics); });
+    $('hidePianoBtn').addEventListener('click',()=>setKeyboardVisible(false));
+    $('pianoMiniBtn').addEventListener('click',()=>setKeyboardVisible(true));
     $('octDown').addEventListener('click',()=>{ state.baseOctave=clamp(state.baseOctave-1,1,6); releaseAll(true); buildKeyboard(); });
     $('octUp').addEventListener('click',()=>{ state.baseOctave=clamp(state.baseOctave+1,1,6); releaseAll(true); buildKeyboard(); });
     $('clearStackBtn').addEventListener('click',()=>releaseAll(true));
@@ -1405,12 +1472,15 @@
     document.addEventListener('selectstart',(e)=>{ if(!e.target.matches('input,select,textarea')) e.preventDefault(); },{passive:false});
     window.addEventListener('keydown',handlePhysicalKeyDown,{passive:false});
     window.addEventListener('keyup',handlePhysicalKeyUp,{passive:false});
+    window.addEventListener('resize',()=>requestAnimationFrame(updateKeyboardDockMetrics),{passive:true});
+    window.addEventListener('orientationchange',()=>setTimeout(updateKeyboardDockMetrics,240),{passive:true});
+    if(window.ResizeObserver){ new ResizeObserver(()=>updateKeyboardDockMetrics()).observe($('keyboardDock')); }
     window.addEventListener('blur',()=>releaseAll(true));
     document.addEventListener('visibilitychange',()=>{ if(document.hidden) releaseAll(true); });
   }
 
   function init(){
-    setupHomeBits(); setupVisual(); setupGuide(); bind(); buildKeyboard(); renderPatches(); selectPatch(0); updateControlLabels(); updateSustainUi(); updateMeters();
+    setupHomeBits(); setupVisual(); setupGuide(); bind(); buildKeyboard(); renderPatches(); selectPatch(0); updateControlLabels(); updateSustainUi(); updateMeters(); updateKeyboardDockMetrics();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
