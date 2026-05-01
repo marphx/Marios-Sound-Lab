@@ -199,6 +199,18 @@
     .map-key{min-height:34px;}
     .workspace{grid-template-columns:repeat(2,minmax(0,1fr));}
   }
+
+  html, body, main, section, article, header, div, p, h1, h2, h3, h4, span, button, canvas, svg, label, kbd{
+    -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
+  }
+  input, select{ -webkit-user-select:auto; user-select:auto; }
+  button, .key{ touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .mode-tabs{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:3px;border:1px solid rgba(131,255,243,.16);border-radius:13px;background:rgba(0,0,0,.20);}
+  .modeBtn{font-size:.62rem;padding:7px 9px;border-radius:10px;}
+  .modeBtn.on{background:linear-gradient(135deg,rgba(48,235,220,.32),rgba(255,56,232,.20));border-color:rgba(131,255,243,.56);box-shadow:0 0 16px rgba(48,235,220,.18);}
+  .chip.dangerish.on{background:linear-gradient(135deg,rgba(215,255,85,.22),rgba(48,235,220,.18));border-color:rgba(215,255,85,.48);}
+  .tracking-box{position:absolute;pointer-events:none;}
+
 </style>
 </head>
 <body>
@@ -208,7 +220,7 @@
   <div class="home-card">
     <p class="home-kicker">Retro Glitch // Neon Sound Engine</p>
     <h1 class="home-title"><span>Mario's</span>Sound Lab</h1>
-    <p class="home-tagline"><strong>You haven’t seen sound move like this.</strong><br/>A black-box studio instrument where keys, color, light, camera motion, and synth design collide in real time.</p>
+    <p class="home-tagline"><strong>You haven’t seen sound move like this.</strong><br/>Not a toy synth. Not a regular visualizer. A motion-reactive black-box instrument built to make sound feel alive.</p>
     <div class="home-actions">
       <button class="btn primary" id="launchBtn" type="button" data-tip="Launches the app intro page before the sound engine opens.">Launch the Lab</button>
     </div>
@@ -219,16 +231,16 @@
 <section id="instructions" class="screen hidden">
   <div class="boot-card">
     <h2>Boot Sequence</h2>
-    <p style="color:#dffffc;line-height:1.55;max-width:850px;">Mario’s Sound Lab is designed as a playable synth-design classroom and performance toy. You can play the fixed two-octave piano by touch or with a connected Bluetooth/physical keyboard, switch between iconic sound banks, sculpt patches with studio-style controls, and watch the visual engine react to notes, chords, camera brightness, and motion in real time.</p>
+    <p style="color:#dffffc;line-height:1.55;max-width:850px;">Mario’s Sound Lab is designed as a playable synth-design classroom and performance toy. You can play the fixed two-octave piano by touch or with a connected Bluetooth/physical keyboard, switch between iconic sound banks, choose Poly / Chord / Mono / Legato playing modes, sculpt patches with studio-style controls, and watch the visual engine react to notes, chords, camera brightness, facial movement zones, and hand motion in real time.</p>
     <div class="boot-grid">
       <div class="boot-box"><b>1. Play the piano.</b><br/>The piano stays pinned to the bottom so it always feels like an instrument. Touch the keys, or pair a Bluetooth/physical keyboard and use it as a mock piano controller.</div>
       <div class="boot-box"><b>2. Use the keyboard map.</b><br/>Tap “Key Map” in the piano dock to open a collapsible reference. Lower octave: Z S X D C V G B H N J M. Upper octave: Q 2 W 3 E R 5 T 6 Y 7 U. Space toggles Sustain.</div>
-      <div class="boot-box"><b>3. Hold, stack, and sustain.</b><br/>Stack Chords lets tapped notes stay on for chord building. Sustain works like a pedal: turn it on to let released notes ring, then turn it off to fade them cleanly.</div>
+      <div class="boot-box"><b>3. Choose a play mode.</b><br/>Poly is for normal multi-note playing. Chord smooths stacked harmonies with safer gain. Mono is for one-note leads. Legato glides from note to note like a lead synth line.</div>
       <div class="boot-box"><b>4. Sculpt the sound.</b><br/>Use tone, attack, release, detune, LFO, drive, phaser, flanger, chorus, delay, and reverb to hear how each parameter reshapes the patch.</div>
       <div class="boot-box"><b>5. Open the visual engine.</b><br/>The square visual display can blend animated audio feedback with a camera-pixel portrait effect. Collapse it any time and reopen it from the small waveform button.</div>
-      <div class="boot-box"><b>6. Camera expression.</b><br/>Camera mode uses the browser’s camera stream with permission. Brightness and motion can push air, shimmer, filter, modulation, and delay. Native biometric face sensors stay private and are not exposed to web pages, so this app uses visual camera analysis instead.</div>
+      <div class="boot-box"><b>6. Camera expression.</b><br/>Camera mode uses the browser’s camera stream with permission. Camera Sound can be turned on or off. When on, light, head-zone movement, eye-zone motion, mouth/lower motion, and hand/edge motion smoothly reshape filter, shimmer, delay, modulation, and space.</div>
     </div>
-    <p class="micro">Tip: Bluetooth keyboards connect through the device’s normal Bluetooth settings first; the web app then receives normal key events. Camera access works best from HTTPS, such as GitHub Pages. Use Emergency Reset any time audio, camera, sustain, or controls feel stuck.</p>
+    <p class="micro">Tip: Bluetooth keyboards connect through the device’s normal Bluetooth settings first; the web app then receives normal key events. Camera access works best from HTTPS, such as GitHub Pages. Use Emergency Reset any time audio, camera, sustain, touch keys, keyboard keys, or controls feel stuck.</p>
     <div class="boot-actions">
       <button id="enterLabBtn" class="btn primary" type="button">Enter Sound Lab</button>
       <button id="backHomeBtn" class="btn" type="button">Back</button>
@@ -269,7 +281,8 @@
         <div class="visual-controls">
           <div class="chip-row">
             <button id="cameraBtn" class="chip" type="button" data-tip="Starts or stops the device camera. The feed is transformed into black-background microbits instead of showing raw video.">Camera Mode</button>
-            <button id="faceBtn" class="chip" type="button" data-tip="Turns on browser-safe expression tracking. It uses visual motion zones and FaceDetector only when the browser supports it.">Face Track</button>
+            <button id="faceBtn" class="chip" type="button" data-tip="Turns on browser-safe expression tracking. It overlays simulated facial/hand feature guides and uses motion zones to shape sound.">Face Track</button>
+            <button id="cameraSoundBtn" class="chip dangerish on" type="button" data-tip="Turns the spontaneous camera-to-sound manipulation on or off. Leave it off if you only want the visual display.">Camera Sound On</button>
             <button id="switchCameraBtn" class="chip" type="button" data-tip="Attempts to switch between front and back cameras.">Switch Cam</button>
           </div>
           <div class="select-wrap" data-tip="Choose any camera exposed by the browser after permission is granted.">
@@ -320,6 +333,7 @@
           <div class="range" data-tip="How quickly the sound blooms after a key is pressed."><label>Attack <span id="attackVal">4%</span></label><input id="attack" type="range" min="0" max="100" value="4"></div>
           <div class="range" data-tip="How long the sound fades after a key is released."><label>Release <span id="releaseVal">38%</span></label><input id="release" type="range" min="0" max="100" value="38"></div>
           <div class="range" data-tip="Detunes layered oscillators for width and movement."><label>Detune <span id="detuneVal">14%</span></label><input id="detune" type="range" min="0" max="100" value="14"></div>
+          <div class="range" data-tip="Glide time for Mono and Legato modes. Higher values slide more slowly into the next note."><label>Glide <span id="glideVal">22%</span></label><input id="glide" type="range" min="0" max="100" value="22"></div>
         </div>
       </div>
     </article>
@@ -361,6 +375,12 @@
     <div class="kbd-tools">
       <div class="kbd-tools-left">
         <div class="kbd-title">Two-Octave Piano</div>
+        <div class="mode-tabs" data-tip="Voice mode selector. Poly plays normal chords, Chord smooths stacked harmony, Mono is one note at a time, and Legato glides between notes.">
+          <button class="btn small modeBtn on" type="button" data-mode="poly">Poly</button>
+          <button class="btn small modeBtn" type="button" data-mode="chord">Chord</button>
+          <button class="btn small modeBtn" type="button" data-mode="mono">Mono</button>
+          <button class="btn small modeBtn" type="button" data-mode="legato">Legato</button>
+        </div>
         <button id="stackBtn" class="btn small" type="button" data-tip="Stack Chords mode: tap keys to hold or release them for chord building.">Stack Chords</button>
         <button id="sustainBtn" class="btn small" type="button" data-tip="Sustain pedal mode. When on, released touch or Bluetooth/physical keyboard notes keep ringing until sustain is turned off or Clear Stack/Emergency is pressed.">Sustain Off</button>
         <button id="keyMapBtn" class="btn small" type="button" data-tip="Opens the collapsible piano-to-keyboard reference for Bluetooth or physical keyboard control.">Key Map</button>
@@ -391,7 +411,7 @@
     <div id="keyMapLower" class="map-row"></div>
     <div class="map-label">Upper octave</div>
     <div id="keyMapUpper" class="map-row"></div>
-    <p class="micro key-map-note">Space toggles Sustain. Oct - / Oct + shifts both the touch piano and this keyboard map. Key response works after the app is open and the page has focus.</p>
+    <p class="micro key-map-note">Space toggles Sustain. Poly/Chord support harmony, while Mono/Legato turn this into a lead controller with glide. Oct - / Oct + shifts both the touch piano and this keyboard map. Key response works after the app is open and the page has focus.</p>
   </div>
 </div>
 
@@ -410,9 +430,13 @@
     audio:null,
     nodes:null,
     voices:new Map(),
+    monoVoice:null,
+    noteStack:[],
     heldPointers:new Map(),
     stackMode:false,
+    playMode:'poly',
     sustain:false,
+    cameraSound:true,
     keyboardHeld:new Map(),
     keyMapOpen:false,
     row2Open:true,
@@ -429,6 +453,7 @@
     brightness:0,
     motion:0,
     gestures:{head:0,eyes:0,mouth:0,hands:0},
+    smooth:{brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0},
     lastFrame:null,
     analyzerData:null,
     faceDetector:null,
@@ -463,7 +488,7 @@
     ]
   };
 
-  const controlIds = ['volume','tone','resonance','attack','release','detune','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail'];
+  const controlIds = ['volume','tone','resonance','attack','release','detune','glide','phaser','flanger','chorus','delay','reverb','drive','lfoRate','lfoDepth','gestureMod','layerMix','camBlend','frontBlend','lightAir','bitDetail'];
 
   const physicalLayout = [
     {code:'KeyZ',key:'Z',offset:0,black:false,row:'lower'},{code:'KeyS',key:'S',offset:1,black:true,row:'lower'},{code:'KeyX',key:'X',offset:2,black:false,row:'lower'},{code:'KeyD',key:'D',offset:3,black:true,row:'lower'},{code:'KeyC',key:'C',offset:4,black:false,row:'lower'},{code:'KeyV',key:'V',offset:5,black:false,row:'lower'},{code:'KeyG',key:'G',offset:6,black:true,row:'lower'},{code:'KeyB',key:'B',offset:7,black:false,row:'lower'},{code:'KeyH',key:'H',offset:8,black:true,row:'lower'},{code:'KeyN',key:'N',offset:9,black:false,row:'lower'},{code:'KeyJ',key:'J',offset:10,black:true,row:'lower'},{code:'KeyM',key:'M',offset:11,black:false,row:'lower'},
@@ -563,6 +588,8 @@
     const reverbWet = audio.createGain();
     const dry = audio.createGain();
     const master = audio.createGain();
+    const limiter = audio.createDynamicsCompressor();
+    limiter.threshold.value=-16; limiter.knee.value=20; limiter.ratio.value=10; limiter.attack.value=.003; limiter.release.value=.18;
     const analyser = audio.createAnalyser(); analyser.fftSize=512;
     const lfo = audio.createOscillator();
     const lfoGain = audio.createGain();
@@ -577,14 +604,14 @@
     phaser.connect(chorusDelay); chorusDelay.connect(chorusWet); chorusWet.connect(master);
     phaser.connect(delay); delay.connect(delayFeedback); delayFeedback.connect(delay); delay.connect(delayWet); delayWet.connect(master);
     phaser.connect(reverbDelay); reverbDelay.connect(reverbFeedback); reverbFeedback.connect(reverbDelay); reverbDelay.connect(reverbWet); reverbWet.connect(master);
-    master.connect(analyser); analyser.connect(audio.destination);
+    master.connect(limiter); limiter.connect(analyser); analyser.connect(audio.destination);
 
     lfo.type='sine'; lfo.connect(lfoGain); lfoGain.connect(filter.frequency); lfo.start();
     flangerLfo.type='sine'; flangerLfo.frequency.value=.18; flangerLfo.connect(flangerLfoGain); flangerLfoGain.connect(flangerDelay.delayTime); flangerLfo.start();
     chorusLfo.type='sine'; chorusLfo.frequency.value=.33; chorusLfo.connect(chorusLfoGain); chorusLfoGain.connect(chorusDelay.delayTime); chorusLfo.start();
 
     state.audio=audio;
-    state.nodes={input,drive,filter,phaser,flangerDelay,flangerWet,chorusDelay,chorusWet,delay,delayFeedback,delayWet,reverbDelay,reverbFeedback,reverbWet,dry,master,analyser,lfo,lfoGain,flangerLfo,flangerLfoGain,chorusLfo,chorusLfoGain};
+    state.nodes={input,drive,filter,phaser,flangerDelay,flangerWet,chorusDelay,chorusWet,delay,delayFeedback,delayWet,reverbDelay,reverbFeedback,reverbWet,dry,master,limiter,analyser,lfo,lfoGain,flangerLfo,flangerLfoGain,chorusLfo,chorusLfoGain};
     state.analyzerData = new Uint8Array(analyser.frequencyBinCount);
     applyControls();
   }
@@ -601,64 +628,195 @@
   function applyControls(){
     if(!state.nodes || !state.audio) return;
     const n=state.nodes, t=state.audio.currentTime;
-    const air = state.cameraOn ? state.brightness*pct('lightAir') : 0;
-    const gesture = state.faceTrack ? pct('gestureMod') : 0;
-    const motionPush = state.motion * gesture;
+    const cameraActive = state.cameraOn && state.cameraSound;
     const tone=pct('tone');
-    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*4200 + state.gestures.eyes*motionPush*1600;
-    n.master.gain.setTargetAtTime(pct('volume')*.82,t,.018);
-    n.filter.frequency.setTargetAtTime(clamp(cutoff,90,11800),t,.025);
-    n.filter.Q.setTargetAtTime(.3 + pct('resonance')*17 + state.gestures.mouth*motionPush*7,t,.03);
-    n.phaser.frequency.setTargetAtTime(300+pct('phaser')*2200+state.gestures.head*motionPush*800,t,.04);
-    n.flangerWet.gain.setTargetAtTime(pct('flanger')*.62,t,.03);
-    n.chorusWet.gain.setTargetAtTime(pct('chorus')*.78 + air*.16,t,.04);
-    n.delayWet.gain.setTargetAtTime(pct('delay')*.64 + state.gestures.hands*motionPush*.2,t,.04);
-    n.delayFeedback.gain.setTargetAtTime(.08 + pct('delay')*.55,t,.05);
-    n.reverbWet.gain.setTargetAtTime(pct('reverb')*.64 + air*.24,t,.04);
-    n.reverbFeedback.gain.setTargetAtTime(.18 + pct('reverb')*.66,t,.05);
+    const light = cameraActive ? state.smooth.brightness : 0;
+    const motion = cameraActive ? state.smooth.motion : 0;
+    const gestureDepth = cameraActive ? pct('gestureMod') : 0;
+    const eyes = cameraActive ? state.smooth.eyes : 0;
+    const head = cameraActive ? state.smooth.head : 0;
+    const mouth = cameraActive ? state.smooth.mouth : 0;
+    const hands = cameraActive ? state.smooth.hands : 0;
+    const air = clamp((light*1.35 + motion*.42)*pct('lightAir'),0,1);
+    const motionPush = clamp((motion*.85 + hands*.65 + head*.45 + eyes*.28 + mouth*.35)*gestureDepth,0,1);
+    const cutoff=180 + Math.pow(tone,1.55)*6800 + air*5200 + eyes*gestureDepth*2200 + hands*gestureDepth*900;
+    n.master.gain.setTargetAtTime(pct('volume')*.78,t,.028);
+    n.filter.frequency.setTargetAtTime(clamp(cutoff,80,13200),t,.07);
+    n.filter.Q.setTargetAtTime(.25 + pct('resonance')*14 + mouth*gestureDepth*5.5,t,.08);
+    n.phaser.frequency.setTargetAtTime(260+pct('phaser')*2300+head*gestureDepth*900,t,.09);
+    n.flangerWet.gain.setTargetAtTime(clamp(pct('flanger')*.55 + hands*gestureDepth*.16,0,.72),t,.08);
+    n.chorusWet.gain.setTargetAtTime(clamp(pct('chorus')*.70 + air*.20,0,.86),t,.09);
+    n.delayWet.gain.setTargetAtTime(clamp(pct('delay')*.58 + hands*gestureDepth*.24,0,.82),t,.10);
+    n.delayFeedback.gain.setTargetAtTime(clamp(.06 + pct('delay')*.48 + motionPush*.08,0,.68),t,.12);
+    n.reverbWet.gain.setTargetAtTime(clamp(pct('reverb')*.58 + air*.30,0,.90),t,.11);
+    n.reverbFeedback.gain.setTargetAtTime(clamp(.16 + pct('reverb')*.58 + light*.10,0,.82),t,.13);
     n.drive.curve=makeDriveCurve(pct('drive'));
     n.drive.oversample='2x';
-    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9,t,.05);
-    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1200 + motionPush*900,t,.05);
-    n.flangerLfoGain.gain.setTargetAtTime(.0002 + pct('flanger')*.005,t,.05);
-    n.chorusLfoGain.gain.setTargetAtTime(.0004 + pct('chorus')*.006,t,.05);
+    n.lfo.frequency.setTargetAtTime(.05+pct('lfoRate')*9 + motionPush*2.6,t,.10);
+    n.lfoGain.gain.setTargetAtTime(pct('lfoDepth')*1050 + motionPush*850,t,.12);
+    n.flangerLfoGain.gain.setTargetAtTime(.00015 + pct('flanger')*.0048 + hands*gestureDepth*.0017,t,.11);
+    n.chorusLfoGain.gain.setTargetAtTime(.00035 + pct('chorus')*.0055 + light*.0012,t,.11);
+  }
+
+  function addNoteToStack(note){
+    state.noteStack = state.noteStack.filter(n=>n!==note);
+    state.noteStack.push(note);
+  }
+  function removeNoteFromStack(note){
+    state.noteStack = state.noteStack.filter(n=>n!==note);
+  }
+  function heldNotesSet(){
+    return new Set([...state.heldPointers.values(), ...state.keyboardHeld.values(), ...state.noteStack]);
+  }
+  function voiceTargetGain(velocity=1){
+    const active = Math.max(1,state.voices.size + 1);
+    if(state.playMode==='chord') return clamp(velocity*.70/Math.pow(Math.min(active,10),.58),.05,.60);
+    if(state.playMode==='poly') return clamp(velocity*.66/Math.sqrt(Math.min(active,8)),.05,.64);
+    return clamp(velocity*.72,.06,.76);
+  }
+  function glideSeconds(){
+    return .015 + Math.pow(pct('glide'),1.7)*.42;
   }
 
   function playNote(note, velocity=1){
     initAudio().then(()=>{
-      const audio=state.audio, nodes=state.nodes;
-      if(!audio || !nodes) return;
-      if(state.voices.has(note)) releaseNote(note, .012, true);
-      const patch=state.selectedPatch || banks.keys[0];
-      const freq=midiToFreq(note);
-      const t=audio.currentTime;
-      const voiceId=Symbol('voice');
-      const gain=audio.createGain(); gain.gain.value=0;
-      const osc1=audio.createOscillator();
-      const osc2=audio.createOscillator();
-      const layer1=audio.createGain(); const layer2=audio.createGain();
-      const mix=pct('layerMix'); const det=(pct('detune')*22);
-      osc1.type=patch.wave; osc2.type=patch.wave2;
-      osc1.frequency.value=freq; osc2.frequency.value=freq;
-      osc1.detune.value=-det; osc2.detune.value=det + (patch.name.includes('Wurli')?7:0);
-      layer1.gain.value=1-mix*.55; layer2.gain.value=mix*.78;
-      osc1.connect(layer1); osc2.connect(layer2); layer1.connect(gain); layer2.connect(gain); gain.connect(nodes.input);
-      const attack=.003 + Math.pow(pct('attack'),2)*1.2;
-      gain.gain.cancelScheduledValues(t);
-      gain.gain.setValueAtTime(.0001,t);
-      gain.gain.exponentialRampToValueAtTime(clamp(velocity*.62,.04,.9),t+attack);
-      osc1.start(t); osc2.start(t);
-      state.voices.set(note,{id:voiceId,note,gain,osc1,osc2,started:now()});
-      updateKeyState(note,true);
-      updateMeters();
+      if(!state.audio || !state.nodes) return;
+      addNoteToStack(note);
+      if(state.playMode==='mono' || state.playMode==='legato'){
+        playMonoNote(note, velocity, state.playMode==='legato');
+        return;
+      }
+      playPolyNote(note, velocity);
     });
   }
 
+  function playPolyNote(note, velocity=1){
+    const audio=state.audio, nodes=state.nodes;
+    if(!audio || !nodes) return;
+    if(state.voices.has(note)) releasePolyVoice(note, .008, true);
+    const patch=state.selectedPatch || banks.keys[0];
+    const freq=midiToFreq(note);
+    const t=audio.currentTime;
+    const gain=audio.createGain(); gain.gain.value=0;
+    const osc1=audio.createOscillator();
+    const osc2=audio.createOscillator();
+    const layer1=audio.createGain(); const layer2=audio.createGain();
+    const mix=pct('layerMix'); const det=(pct('detune')*22);
+    osc1.type=patch.wave; osc2.type=patch.wave2;
+    osc1.frequency.setValueAtTime(freq,t); osc2.frequency.setValueAtTime(freq,t);
+    osc1.detune.value=-det; osc2.detune.value=det + (patch.name.includes('Wurli')?7:0);
+    layer1.gain.value=1-mix*.55; layer2.gain.value=mix*.78;
+    osc1.connect(layer1); osc2.connect(layer2); layer1.connect(gain); layer2.connect(gain); gain.connect(nodes.input);
+    const attack=.003 + Math.pow(pct('attack'),2)*1.2;
+    const target=voiceTargetGain(velocity);
+    gain.gain.cancelScheduledValues(t);
+    gain.gain.setValueAtTime(.0001,t);
+    gain.gain.exponentialRampToValueAtTime(target,t+attack);
+    osc1.start(t); osc2.start(t);
+    state.voices.set(note,{mode:'poly',note,gain,osc1,osc2,started:now()});
+    normalizePolyVoices();
+    updateKeyState(note,true);
+    updateMeters();
+  }
+
+  function normalizePolyVoices(){
+    if(!state.audio || (state.playMode!=='poly' && state.playMode!=='chord')) return;
+    const t=state.audio.currentTime;
+    const active=Math.max(1,state.voices.size);
+    const scale = state.playMode==='chord' ? 1/Math.pow(Math.min(active,10),.22) : 1/Math.pow(Math.min(active,8),.16);
+    state.voices.forEach(v=>{
+      if(v.mode==='poly'){
+        const current=Math.max(.0001, v.gain.gain.value || .2);
+        v.gain.gain.setTargetAtTime(clamp(current*scale,.035,.62),t,.035);
+      }
+    });
+  }
+
+  function playMonoNote(note, velocity=1, legato=false){
+    const audio=state.audio, nodes=state.nodes;
+    if(!audio || !nodes) return;
+    const patch=state.selectedPatch || banks.keys[0];
+    const freq=midiToFreq(note);
+    const t=audio.currentTime;
+    const existing=state.monoVoice;
+    const glide=glideSeconds();
+    if(existing && !existing.releasing){
+      const old=existing.note;
+      existing.note=note;
+      state.voices.delete(old);
+      state.voices.set(note,existing);
+      existing.osc1.frequency.cancelScheduledValues(t);
+      existing.osc2.frequency.cancelScheduledValues(t);
+      existing.osc1.frequency.setTargetAtTime(freq,t,legato?glide:.012);
+      existing.osc2.frequency.setTargetAtTime(freq,t,legato?glide:.012);
+      if(!legato){
+        const attack=.003 + Math.pow(pct('attack'),2)*.55;
+        existing.gain.gain.cancelScheduledValues(t);
+        existing.gain.gain.setValueAtTime(Math.max(.0001,existing.gain.gain.value),t);
+        existing.gain.gain.exponentialRampToValueAtTime(voiceTargetGain(velocity),t+attack);
+      }
+      updateKeyState(old,false); updateKeyState(note,true); updateMeters(); return;
+    }
+    const gain=audio.createGain(); gain.gain.value=0;
+    const osc1=audio.createOscillator(); const osc2=audio.createOscillator();
+    const layer1=audio.createGain(); const layer2=audio.createGain();
+    const mix=pct('layerMix'); const det=pct('detune')*18;
+    osc1.type=patch.wave; osc2.type=patch.wave2;
+    osc1.frequency.value=freq; osc2.frequency.value=freq;
+    osc1.detune.value=-det; osc2.detune.value=det;
+    layer1.gain.value=1-mix*.48; layer2.gain.value=mix*.66;
+    osc1.connect(layer1); osc2.connect(layer2); layer1.connect(gain); layer2.connect(gain); gain.connect(nodes.input);
+    const attack=.003 + Math.pow(pct('attack'),2)*.8;
+    gain.gain.setValueAtTime(.0001,t);
+    gain.gain.exponentialRampToValueAtTime(voiceTargetGain(velocity),t+attack);
+    osc1.start(t); osc2.start(t);
+    const voice={mode:'mono',note,gain,osc1,osc2,started:now(),releasing:false};
+    state.monoVoice=voice; state.voices.clear(); state.voices.set(note,voice);
+    updateKeyState(note,true); updateMeters();
+  }
+
   function releaseNote(note, customRelease, immediate=false){
+    removeNoteFromStack(note);
+    if(state.playMode==='mono' || state.playMode==='legato') return releaseMonoNote(note, customRelease, immediate);
+    return releasePolyVoice(note, customRelease, immediate);
+  }
+
+  function releaseMonoNote(note, customRelease, immediate=false){
+    const voice=state.monoVoice;
+    if(!voice || !state.audio) { updateKeyState(note,false); return; }
+    const stillHeld=[...heldNotesSet()].filter(n=>n!==note);
+    if(!immediate && stillHeld.length && voice.note===note){
+      const next=stillHeld[stillHeld.length-1];
+      removeNoteFromStack(note);
+      addNoteToStack(next);
+      playMonoNote(next,.9,state.playMode==='legato');
+      updateKeyState(note,false);
+      return;
+    }
+    if(voice.note!==note && !immediate){ updateKeyState(note,false); return; }
+    const audio=state.audio; const t=audio.currentTime;
+    const rel = immediate ? .012 : (customRelease ?? (.025 + Math.pow(pct('release'),2)*1.8));
+    voice.releasing=true;
+    try{
+      voice.gain.gain.cancelScheduledValues(t);
+      voice.gain.gain.setTargetAtTime(.0001,t,Math.max(.006,rel*.26));
+      voice.osc1.stop(t+rel+.05); voice.osc2.stop(t+rel+.05);
+    }catch(e){}
+    setTimeout(()=>{
+      if(state.monoVoice===voice){
+        try{ voice.gain.disconnect(); }catch(e){}
+        state.monoVoice=null; state.voices.clear();
+        document.querySelectorAll('.key.active,.key.stackheld').forEach(k=>k.classList.remove('active','stackheld'));
+        updateMeters();
+      }
+    },Math.max(30,(rel+.08)*1000));
+  }
+
+  function releasePolyVoice(note, customRelease, immediate=false){
     const voice=state.voices.get(note);
     if(!voice || !state.audio) return;
     const audio=state.audio; const t=audio.currentTime;
-    const rel = immediate ? .012 : (customRelease ?? (.025 + Math.pow(pct('release'),2)*2.6));
+    const rel = immediate ? .012 : (customRelease ?? (.025 + Math.pow(pct('release'),2)*2.15));
     try{
       voice.gain.gain.cancelScheduledValues(t);
       voice.gain.gain.setTargetAtTime(.0001,t,Math.max(.006,rel*.28));
@@ -669,30 +827,50 @@
         try{ voice.gain.disconnect(); }catch(e){}
         state.voices.delete(note);
         updateKeyState(note,false);
+        normalizePolyVoices();
         updateMeters();
       }
     },Math.max(30,(rel+.08)*1000));
   }
 
+  function hardKillVoices(){
+    const t=state.audio?.currentTime || 0;
+    state.voices.forEach(v=>{
+      try{ v.gain?.gain?.cancelScheduledValues(t); v.gain.gain.value=0; }catch(e){}
+      try{ v.osc1?.stop(t); }catch(e){}
+      try{ v.osc2?.stop(t); }catch(e){}
+      try{ v.gain?.disconnect(); }catch(e){}
+    });
+    if(state.monoVoice){
+      try{ state.monoVoice.gain.gain.value=0; state.monoVoice.osc1.stop(t); state.monoVoice.osc2.stop(t); state.monoVoice.gain.disconnect(); }catch(e){}
+    }
+    state.voices.clear(); state.monoVoice=null;
+  }
+
   function releaseAll(immediate=true){
-    [...state.voices.keys()].forEach(n=>releaseNote(n, immediate?.01:undefined, immediate));
-    state.heldPointers.clear();
-    state.keyboardHeld.clear();
+    state.heldPointers.clear(); state.keyboardHeld.clear(); state.noteStack=[];
+    if(immediate) hardKillVoices();
+    else [...state.voices.keys()].forEach(n=>releaseNote(n, undefined, false));
     document.querySelectorAll('.key.active,.key.stackheld').forEach(k=>k.classList.remove('active','stackheld'));
     setTimeout(updateMeters,40);
   }
 
   async function emergencyReset(){
-    try{ releaseAll(true); }catch(e){}
-    if(state.cameraStream){ state.cameraStream.getTracks().forEach(tr=>tr.stop()); state.cameraStream=null; state.cameraOn=false; $('cameraBtn').classList.remove('on'); }
+    try{ hardKillVoices(); }catch(e){}
+    state.heldPointers.clear(); state.keyboardHeld.clear(); state.noteStack=[]; state.stackMode=false; state.sustain=false;
+    document.querySelectorAll('.key.active,.key.stackheld').forEach(k=>k.classList.remove('active','stackheld'));
+    $('stackBtn')?.classList.remove('on'); updateSustainUi();
+    if(state.cameraStream){ state.cameraStream.getTracks().forEach(tr=>tr.stop()); state.cameraStream=null; }
+    state.cameraOn=false; $('cameraBtn')?.classList.remove('on'); $('camVideo').srcObject=null;
     if(state.audio && state.audio.state!=='closed'){
       try{ await state.audio.close(); }catch(e){}
     }
-    state.audio=null; state.nodes=null; state.voices.clear(); state.heldPointers.clear(); state.keyboardHeld.clear(); state.sustain=false; state.lastFrame=null; state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0};
-    updateSustainUi();
+    state.audio=null; state.nodes=null; state.voices.clear(); state.monoVoice=null; state.lastFrame=null; state.lastFace=null;
+    state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0};
     resetPatch();
-    await initAudio();
-    showToast('Emergency reset complete. Audio, camera, and held notes were force-cleared.');
+    if(state.activeScreen==='app') await initAudio();
+    updateGestureMeters(); updateMeters();
+    showToast('Emergency reset complete. Audio engine hard-killed and rebuilt.');
   }
 
   function updateKeyState(note,on){
@@ -754,6 +932,7 @@
     btn.addEventListener('pointerdown',keyDown);
     btn.addEventListener('pointerup',keyUp);
     btn.addEventListener('pointercancel',keyUp);
+    btn.addEventListener('lostpointercapture',keyUp);
     btn.addEventListener('pointerleave',keyLeave);
     return btn;
   }
@@ -764,6 +943,7 @@
     e.preventDefault();
     const key=e.currentTarget; const note=Number(key.dataset.note);
     key.setPointerCapture?.(e.pointerId);
+    updateKeyState(note,true);
     if(state.stackMode){
       if(state.voices.has(note)){ releaseNote(note,.02,true); setStackKey(note,false); }
       else { playNote(note); setStackKey(note,true); }
@@ -906,14 +1086,14 @@
       $('camVideo').srcObject=stream; await $('camVideo').play();
       $('cameraBtn').classList.add('on');
       await listCameras();
-      showToast('Camera mode active. Visuals are being transformed into microbits.');
+      showToast('Camera mode active. Microbits, feature overlays, and light/motion analysis are online.');
     }catch(err){
       console.error(err); showToast('Camera could not start. Check browser permission and HTTPS.');
     }
   }
   function stopCamera(){
     if(state.cameraStream){ state.cameraStream.getTracks().forEach(t=>t.stop()); }
-    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; $('cameraBtn').classList.remove('on');
+    state.cameraStream=null; state.cameraOn=false; state.lastFrame=null; state.brightness=0; state.motion=0; state.gestures={head:0,eyes:0,mouth:0,hands:0}; state.smooth={brightness:0,motion:0,head:0,eyes:0,mouth:0,hands:0}; $('cameraBtn').classList.remove('on');
     showToast('Camera mode off.');
   }
   async function listCameras(){
@@ -962,16 +1142,20 @@
     const camBlend=pct('camBlend'), foreground=pct('frontBlend'), detail=pct('bitDetail');
     const gestures={head:0,eyes:0,mouth:0,hands:0};
     if(state.cameraOn && video.readyState>=2){
+      const targetSize = Math.round(110 + detail*70);
+      if(sample.width!==targetSize){ sample.width=targetSize; sample.height=targetSize; state.lastFrame=null; }
       sctx.save();
       sctx.translate(sample.width,0); sctx.scale(-1,1);
       sctx.drawImage(video,0,0,sample.width,sample.height);
       sctx.restore();
       const img=sctx.getImageData(0,0,sample.width,sample.height);
       const data=img.data;
-      const step=Math.max(2,Math.round(7-detail*5));
+      const step=Math.max(1,Math.round(4-detail*3));
       const prev=state.lastFrame;
       let total=0, count=0, diffTotal=0;
-      const zones={top:0,mid:0,low:0,edge:0,tc:0,mc:0,lc:0,ec:0};
+      let minX=sample.width, minY=sample.height, maxX=0, maxY=0, hit=0;
+      const zones={top:0,mid:0,low:0,edge:0,left:0,right:0,tc:0,mc:0,lc:0,ec:0,lc2:0,rc2:0};
+      ctx.globalCompositeOperation='lighter';
       for(let y=0;y<sample.height;y+=step){
         for(let x=0;x<sample.width;x+=step){
           const i=(y*sample.width+x)*4;
@@ -979,22 +1163,26 @@
           const lum=(r+g+b)/765;
           total+=lum; count++;
           let d=0;
-          if(prev) d=Math.abs(lum-prev[(y*sample.width+x)]||0);
+          if(prev) d=Math.abs(lum-(prev[y*sample.width+x]||0));
           diffTotal+=d;
-          if(y<32){zones.top+=d; zones.tc++;}
-          else if(y<66){zones.mid+=d; zones.mc++;}
+          const yn=y/sample.height, xn=x/sample.width;
+          if(yn<.34){zones.top+=d; zones.tc++;}
+          else if(yn<.68){zones.mid+=d; zones.mc++;}
           else {zones.low+=d; zones.lc++;}
-          if(x<22 || x>74){zones.edge+=d; zones.ec++;}
-          if(lum>.11 || d>.04){
+          if(xn<.24 || xn>.76){zones.edge+=d; zones.ec++;}
+          if(xn<.42){zones.left+=d; zones.lc2++;}
+          if(xn>.58){zones.right+=d; zones.rc2++;}
+          if(lum>.13 || d>.030){
+            minX=Math.min(minX,x); minY=Math.min(minY,y); maxX=Math.max(maxX,x); maxY=Math.max(maxY,y); hit++;
             const px=(x/sample.width)*w, py=(y/sample.height)*h;
-            const alpha=clamp((lum*.72 + d*3.6)*camBlend,0,.82);
-            const tone=tealTones[(x+y+Math.floor(t*5))%tealTones.length];
-            ctx.globalAlpha=alpha*(.6+foreground*.7);
+            const alpha=clamp((lum*.78 + d*4.8)*camBlend,0,.88);
+            const tone=tealTones[(x+y+Math.floor(t*7))%tealTones.length];
+            ctx.globalAlpha=alpha*(.58+foreground*.72);
             ctx.fillStyle=tone;
-            const sz=clamp(1+lum*2.2+d*8,1,3.4);
+            const sz=clamp(.42+lum*.62+d*2.2,.38,1.35);
             ctx.fillRect(px,py,sz,sz);
-            if(d>.08){
-              ctx.strokeStyle=(Math.random()>.5?'#ff38e8':'#d7ff55'); ctx.lineWidth=.45; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+(Math.random()-.5)*12,py+(Math.random()-.5)*12); ctx.stroke();
+            if(d>.052){
+              ctx.strokeStyle=(Math.random()>.45?'#ff38e8':'#d7ff55'); ctx.lineWidth=.34; ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+(Math.random()-.5)*10,py+(Math.random()-.5)*10); ctx.stroke();
             }
           }
         }
@@ -1004,16 +1192,46 @@
         const i=(y*sample.width+x)*4; next[y*sample.width+x]=(data[i]+data[i+1]+data[i+2])/765;
       }
       state.lastFrame=next;
-      brightness=total/Math.max(1,count); motion=clamp(diffTotal/Math.max(1,count)*4,0,1);
-      gestures.eyes=clamp((zones.top/Math.max(1,zones.tc))*8,0,1);
-      gestures.head=clamp((zones.mid/Math.max(1,zones.mc))*8,0,1);
-      gestures.mouth=clamp((zones.low/Math.max(1,zones.lc))*8,0,1);
-      gestures.hands=clamp((zones.edge/Math.max(1,zones.ec))*8,0,1);
-      ctx.globalAlpha=1;
+      brightness=total/Math.max(1,count); motion=clamp(diffTotal/Math.max(1,count)*7.5,0,1);
+      gestures.eyes=clamp((zones.top/Math.max(1,zones.tc))*17,0,1);
+      gestures.head=clamp((zones.mid/Math.max(1,zones.mc))*13,0,1);
+      gestures.mouth=clamp((zones.low/Math.max(1,zones.lc))*16,0,1);
+      gestures.hands=clamp((zones.edge/Math.max(1,zones.ec))*18,0,1);
+      if(hit>18){ drawTrackingOverlay(ctx,w,h,minX,minY,maxX,maxY,sample.width,sample.height,gestures,t); }
+      ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
       if(state.faceTrack) maybeFaceDetect(video,w,h,ctx,gestures).catch(()=>{});
     }
+    const smoothAmt=.16;
+    state.smooth.brightness += (brightness-state.smooth.brightness)*smoothAmt;
+    state.smooth.motion += (motion-state.smooth.motion)*smoothAmt;
+    ['head','eyes','mouth','hands'].forEach(k=>{ state.smooth[k] += ((gestures[k]||0)-state.smooth[k])*.20; });
     state.brightness=brightness; state.motion=motion; state.gestures=gestures;
     updateGestureMeters(); updateMeters();
+  }
+
+  function drawTrackingOverlay(ctx,w,h,minX,minY,maxX,maxY,sw,sh,gestures,t){
+    const x=minX/sw*w, y=minY/sh*h, bw=Math.max(18,(maxX-minX)/sw*w), bh=Math.max(18,(maxY-minY)/sh*h);
+    const cx=x+bw/2;
+    ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=state.faceTrack ? .78 : .38; ctx.lineWidth=1;
+    const pulse=.55+Math.sin(t*5)*.20;
+    ctx.strokeStyle=`rgba(131,255,243,${pulse})`;
+    ctx.strokeRect(x,y,bw,bh);
+    ctx.strokeStyle='rgba(255,56,232,.68)';
+    ctx.strokeRect(cx-bw*.23,y+bh*.18,bw*.16,bh*.09); ctx.strokeRect(cx+bw*.07,y+bh*.18,bw*.16,bh*.09);
+    ctx.strokeStyle='rgba(215,255,85,.70)';
+    ctx.strokeRect(cx-bw*.17,y+bh*.43,bw*.34,bh*.12);
+    ctx.beginPath();
+    ctx.ellipse(cx,y+bh*.32,bw*.34,bh*.26,0,0,Math.PI*2);
+    ctx.strokeStyle='rgba(48,235,220,.72)'; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx,y+bh*.61); ctx.lineTo(cx,y+bh*.92);
+    ctx.moveTo(cx,y+bh*.70); ctx.lineTo(x+bw*.12,y+bh*.82);
+    ctx.moveTo(cx,y+bh*.70); ctx.lineTo(x+bw*.88,y+bh*.82);
+    ctx.strokeStyle='rgba(131,255,243,.36)'; ctx.stroke();
+    if(gestures.hands>.05){
+      ctx.strokeStyle='rgba(255,56,232,.55)'; ctx.strokeRect(4,h*.22,w*.18,h*.56); ctx.strokeRect(w*.78,h*.22,w*.18,h*.56);
+    }
+    ctx.restore();
   }
 
   async function maybeFaceDetect(video,w,h,ctx,gestures){
@@ -1021,19 +1239,20 @@
     if(!state.faceDetector){
       try{ state.faceDetector = new window.FaceDetector({fastMode:true,maxDetectedFaces:1}); }catch(e){ return; }
     }
-    if(maybeFaceDetect.busy || performance.now()-(maybeFaceDetect.last||0)<500) return;
+    if(maybeFaceDetect.busy || performance.now()-(maybeFaceDetect.last||0)<420) return;
     maybeFaceDetect.busy=true; maybeFaceDetect.last=performance.now();
     try{
       const faces=await state.faceDetector.detect(video);
       if(faces && faces[0]){
         const box=faces[0].boundingBox;
         const cx=box.x+box.width/2, cy=box.y+box.height/2;
-        if(state.lastFace){
-          gestures.head=clamp((Math.abs(cx-state.lastFace.x)+Math.abs(cy-state.lastFace.y))/80,0,1);
-        }
+        if(state.lastFace){ gestures.head=clamp((Math.abs(cx-state.lastFace.x)+Math.abs(cy-state.lastFace.y))/65,0,1); }
         state.lastFace={x:cx,y:cy};
-        ctx.save(); ctx.globalAlpha=.65; ctx.strokeStyle='#83fff3'; ctx.lineWidth=1;
-        ctx.strokeRect(w*.18,h*.16,w*.64,h*.64); ctx.restore();
+        ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=.82; ctx.strokeStyle='#83fff3'; ctx.lineWidth=1.25;
+        ctx.strokeRect(w*.18,h*.14,w*.64,h*.66);
+        ctx.strokeStyle='#ff38e8'; ctx.strokeRect(w*.32,h*.32,w*.13,h*.07); ctx.strokeRect(w*.55,h*.32,w*.13,h*.07);
+        ctx.strokeStyle='#d7ff55'; ctx.strokeRect(w*.40,h*.56,w*.20,h*.08);
+        ctx.restore();
       }
     }catch(e){}
     maybeFaceDetect.busy=false;
@@ -1063,7 +1282,7 @@
       ctx.globalAlpha=.12+Math.random()*.35;
       ctx.fillStyle=tealTones[(i+Math.floor(t*7))%tealTones.length];
       const x=Math.random()*w, y=(h*.5)+(Math.random()-.5)*h*(.22+energy*.65);
-      ctx.fillRect(x,y,1+Math.random()*1.4,1+Math.random()*1.4);
+      ctx.fillRect(x,y,.45+Math.random()*.55,.45+Math.random()*.55);
     }
     ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
   }
@@ -1109,19 +1328,41 @@
     setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   }
 
+  function setPlayMode(mode){
+    state.playMode=mode;
+    document.querySelectorAll('.modeBtn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+    if(mode==='mono' || mode==='legato'){
+      releaseAll(true);
+      state.stackMode=false; $('stackBtn')?.classList.remove('on');
+    }else{
+      if(state.monoVoice) releaseAll(true);
+    }
+    const labels={poly:'Poly mode: smooth multi-note playing.',chord:'Chord mode: safer stacked harmony with gain protection.',mono:'Mono mode: one note at a time.',legato:'Legato mode: connected notes glide smoothly.'};
+    showToast(labels[mode]||'Play mode changed.');
+  }
+  function setCameraSound(on){
+    state.cameraSound=!!on;
+    const btn=$('cameraSoundBtn');
+    if(btn){ btn.classList.toggle('on',state.cameraSound); btn.textContent=state.cameraSound?'Camera Sound On':'Camera Sound Off'; }
+    showToast(state.cameraSound?'Camera motion will shape the sound.':'Camera visuals only. Sound manipulation off.');
+  }
+
   function bind(){
     $('launchBtn').addEventListener('click',()=>showScreen('instructions'));
     $('backHomeBtn').addEventListener('click',()=>showScreen('home'));
     $('enterLabBtn').addEventListener('click',async()=>{ showScreen('app'); await initAudio(); buildKeyboard(); showToast('Sound Lab online.'); });
     $('panicBtn').addEventListener('click',emergencyReset);
+    $('panicBtn').addEventListener('pointerdown',(e)=>{ e.preventDefault(); emergencyReset(); },{passive:false});
     $('collapseVisualBtn').addEventListener('click',collapseVisual);
     $('visualMiniBtn').addEventListener('click',openVisual);
     $('guideBtn').addEventListener('click',()=>{ state.guide=!state.guide; document.body.classList.toggle('guide-on',state.guide); $('guideBtn').classList.toggle('on',state.guide); $('tipPop').classList.add('hidden'); showToast(state.guide?'Guide mode on. Tap highlighted controls for info.':'Guide mode off.'); });
     $('cameraBtn').addEventListener('click',()=> state.cameraOn ? stopCamera() : startCamera());
-    $('faceBtn').addEventListener('click',()=>{ state.faceTrack=!state.faceTrack; $('faceBtn').classList.toggle('on',state.faceTrack); showToast(state.faceTrack?'Face/motion tracking on.':'Face/motion tracking off.'); });
+    $('faceBtn').addEventListener('click',()=>{ state.faceTrack=!state.faceTrack; $('faceBtn').classList.toggle('on',state.faceTrack); showToast(state.faceTrack?'Feature tracking overlay on.':'Feature tracking overlay off.'); });
+    $('cameraSoundBtn').addEventListener('click',()=>setCameraSound(!state.cameraSound));
     $('switchCameraBtn').addEventListener('click',switchCamera);
     $('cameraSelect').addEventListener('change',()=>{ if(state.cameraOn) startCamera(); });
-    $('stackBtn').addEventListener('click',()=>{ state.stackMode=!state.stackMode; $('stackBtn').classList.toggle('on',state.stackMode); if(!state.stackMode) releaseAll(false); showToast(state.stackMode?'Stack Chords on. Tap keys to latch or unlatch notes.':'Stack Chords off.'); });
+    $('stackBtn').addEventListener('click',()=>{ if(state.playMode==='mono' || state.playMode==='legato'){ setPlayMode('chord'); } state.stackMode=!state.stackMode; $('stackBtn').classList.toggle('on',state.stackMode); if(!state.stackMode) releaseAll(false); showToast(state.stackMode?'Stack Chords on. Tap keys to latch or unlatch notes.':'Stack Chords off.'); });
+    document.querySelectorAll('.modeBtn').forEach(b=>b.addEventListener('click',()=>setPlayMode(b.dataset.mode)));
     $('sustainBtn').addEventListener('click',()=>setSustain(!state.sustain));
     $('keyMapBtn').addEventListener('click',()=>toggleKeyboardGuide());
     $('closeKeyMapBtn').addEventListener('click',()=>toggleKeyboardGuide(false));
@@ -1142,6 +1383,11 @@
     window.addEventListener('pointerup',(e)=>{
       const note=state.heldPointers.get(e.pointerId); if(note!==undefined && !state.stackMode){ state.heldPointers.delete(e.pointerId); if(!state.sustain) releaseNote(note); }
     });
+    window.addEventListener('pointercancel',(e)=>{
+      const note=state.heldPointers.get(e.pointerId); if(note!==undefined){ state.heldPointers.delete(e.pointerId); if(!state.sustain) releaseNote(note, .02, true); }
+    });
+    window.addEventListener('touchend',()=>{ if(!state.stackMode && !state.sustain && state.heldPointers.size){ const notes=[...state.heldPointers.values()]; state.heldPointers.clear(); notes.forEach(n=>releaseNote(n)); } },{passive:true});
+    window.addEventListener('touchcancel',()=>{ if(!state.stackMode){ const notes=[...state.heldPointers.values()]; state.heldPointers.clear(); notes.forEach(n=>releaseNote(n,.02,true)); } },{passive:true});
     window.addEventListener('keydown',handlePhysicalKeyDown,{passive:false});
     window.addEventListener('keyup',handlePhysicalKeyUp,{passive:false});
     window.addEventListener('blur',()=>releaseAll(true));
